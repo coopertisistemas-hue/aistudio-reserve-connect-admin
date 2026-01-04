@@ -65,7 +65,7 @@ export const useEntitlements = () => {
                 .single();
 
             // 3. Fetch Permissions (for Current User in Current Org)
-            let permissions: Record<string, boolean> = {};
+            const permissions: Record<string, boolean> = {};
             if (currentOrgId) {
                 const { data: perms } = await supabase
                     .from('member_permissions')

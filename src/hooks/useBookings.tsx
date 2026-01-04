@@ -82,7 +82,7 @@ export const useBookings = (propertyId?: string) => {
       // Collect all unique service IDs to fetch them in a single query (batch)
       const allServiceIds = Array.from(new Set(data.flatMap(b => b.services_json || [])));
 
-      let servicesMap: Record<string, Service> = {};
+      const servicesMap: Record<string, Service> = {};
 
       if (allServiceIds.length > 0) {
         const { data: servicesData, error: servicesError } = await supabase

@@ -22,12 +22,8 @@ import RoomCategoriesPage from "./pages/RoomCategoriesPage";
 import AmenitiesPage from "./pages/Amenities";
 import InventoryPage from "./pages/InventoryPage";
 import RoomsPage from "./pages/RoomsPage";
-import AdminPanel from "./pages/AdminPanel";
-import Plans from "./pages/Plans";
-import PricingRulesPage from "./pages/PricingRulesPage";
 import ServicesPage from "./pages/ServicesPage";
 import BookingEnginePage from "./pages/BookingEnginePage";
-import WebsiteSettingsPage from "./pages/WebsiteSettingsPage";
 import SupportHub from "./pages/support/SupportHub";
 import TicketList from "./pages/support/TicketList";
 import CreateTicket from "./pages/support/CreateTicket";
@@ -35,25 +31,17 @@ import TicketDetail from "./pages/support/TicketDetail";
 import IdeaList from "./pages/support/IdeaList";
 import CreateIdea from "./pages/support/CreateIdea";
 import IdeaDetail from "./pages/support/IdeaDetail";
+import PricingRulesPage from "./pages/PricingRulesPage";
+import Plans from "./pages/Plans";
 
 // Admin Support Imports
-import AdminRoute from "./components/AdminRoute";
-import AdminTicketList from "./pages/support/admin/AdminTicketList";
-import AdminTicketDetail from "./pages/support/admin/AdminTicketDetail";
-import AdminIdeaList from "./pages/support/admin/AdminIdeaList";
-import AdminIdeaDetail from "./pages/support/admin/AdminIdeaDetail";
+
 import TasksPage from "./pages/TasksPage";
 import ExpensesPage from "./pages/ExpensesPage";
 import NotFound from "./pages/NotFound";
 import BookingSuccessPage from "./pages/BookingSuccessPage";
 import BookingCancelPage from "./pages/BookingCancelPage";
 import FrontDeskPage from "./pages/FrontDeskPage";
-import AdminPricingPlansPage from "./pages/AdminPricingPlansPage";
-import AdminFeaturesPage from "./pages/AdminFeaturesPage";
-import AdminFaqsPage from "./pages/AdminFaqsPage";
-import AdminTestimonialsPage from "./pages/AdminTestimonialsPage";
-import AdminHowItWorksPage from "./pages/AdminHowItWorksPage";
-import AdminIntegrationsPage from "./pages/AdminIntegrationsPage";
 import ChannelManagerPage from "./pages/ChannelManagerPage";
 import RoomsBoardPage from "./pages/RoomsBoardPage";
 import RoomOperationDetailPage from "./pages/RoomOperationDetailPage";
@@ -414,14 +402,7 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
-                <Route
-                  path="/website-settings"
-                  element={
-                    <ProtectedRoute>
-                      <WebsiteSettingsPage />
-                    </ProtectedRoute>
-                  }
-                />
+
                 <Route
                   path="/plans"
                   element={
@@ -430,64 +411,16 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
-                <Route
-                  path="/admin-panel"
-                  element={
-                    <ProtectedRoute>
-                      <SessionLockManager>
-                        <AdminPanel />
-                      </SessionLockManager>
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
+                {/* <Route
                   path="/admin/pricing-plans"
                   element={
                     <ProtectedRoute>
-                      <AdminPricingPlansPage />
+                      {/* <AdminPricingPlansPage /> * /}
+                      <NotFound /> 
                     </ProtectedRoute>
                   }
-                />
-                <Route
-                  path="/admin/features"
-                  element={
-                    <ProtectedRoute>
-                      <AdminFeaturesPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/faqs"
-                  element={
-                    <ProtectedRoute>
-                      <AdminFaqsPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/testimonials"
-                  element={
-                    <ProtectedRoute>
-                      <AdminTestimonialsPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/how-it-works"
-                  element={
-                    <ProtectedRoute>
-                      <AdminHowItWorksPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/integrations"
-                  element={
-                    <ProtectedRoute>
-                      <AdminIntegrationsPage />
-                    </ProtectedRoute>
-                  }
-                />
+                /> */}
+
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 {/* Support Module Routes */}
                 <Route path="/support" element={<SupportHub />} />
@@ -499,10 +432,7 @@ const App = () => (
                 <Route path="/support/ideas/:id" element={<IdeaDetail />} />
 
                 {/* Admin Support Routes - Protected */}
-                <Route path="/support/admin/tickets" element={<AdminRoute><AdminTicketList /></AdminRoute>} />
-                <Route path="/support/admin/tickets/:id" element={<AdminRoute><AdminTicketDetail /></AdminRoute>} />
-                <Route path="/support/admin/ideas" element={<AdminRoute><AdminIdeaList /></AdminRoute>} />
-                <Route path="/support/admin/ideas/:id" element={<AdminRoute><AdminIdeaDetail /></AdminRoute>} />
+
 
                 <Route path="*" element={<NotFound />} />
               </Routes>
