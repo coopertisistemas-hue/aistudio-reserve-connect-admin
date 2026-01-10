@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type SelectedPropertyContextType = {
-    selectedPropertyId: string | value;
+    selectedPropertyId: string | null;
     setSelectedPropertyId: (id: string | null) => void;
     isLoading: boolean;
 };

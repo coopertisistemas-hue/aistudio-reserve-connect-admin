@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Plus, Search, DollarSign, Home } from "lucide-react";
 import DashboardLayout from "@/components/DashboardLayout";
-import PricingRuleDialog from "@/components/PricingRuleDialog";
-import PricingRuleCard from "@/components/PricingRuleCard";
+// import PricingRuleDialog from "@/components/PricingRuleDialog";
+// import PricingRuleCard from "@/components/PricingRuleCard";
 import { usePricingRules, PricingRule, PricingRuleInput } from "@/hooks/usePricingRules";
 import { useProperties } from "@/hooks/useProperties";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -25,7 +25,7 @@ import { useSelectedProperty } from "@/hooks/useSelectedProperty"; // NEW IMPORT
 const PricingRulesPage = () => {
   const { properties } = useProperties();
   const { selectedPropertyId, setSelectedPropertyId, isLoading: propertyStateLoading } = useSelectedProperty();
-  
+
   const { pricingRules, isLoading, createPricingRule, updatePricingRule, deletePricingRule } = usePricingRules(selectedPropertyId);
   const [searchQuery, setSearchQuery] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -162,18 +162,19 @@ const PricingRulesPage = () => {
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredPricingRules.map((rule) => (
-              <PricingRuleCard
+              {/* <PricingRuleCard
                 key={rule.id}
                 rule={rule}
                 onEdit={handleEditRule}
                 onDelete={handleDeleteClick}
-              />
+              /> */}
             ))}
           </div>
         )}
       </div>
 
       {/* Pricing Rule Dialog */}
+      {/* Pricing Rule Dialog - Component Missing
       <PricingRuleDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
@@ -181,7 +182,7 @@ const PricingRulesPage = () => {
         onSubmit={handleSubmit}
         isLoading={createPricingRule.isPending || updatePricingRule.isPending}
         initialPropertyId={selectedPropertyId}
-      />
+      /> */}
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>

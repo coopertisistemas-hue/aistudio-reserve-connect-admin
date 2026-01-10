@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 import { useEntitlements } from "@/hooks/useEntitlements";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { PricingCards } from "@/components/pricing/PricingCards";
+// import { PricingCards } from "@/components/pricing/PricingCards";
 
 const Plans = () => {
     const { plan: currentPlan, founderExpiresAt, isFounder, maxAccommodations } = useEntitlements();
@@ -62,6 +62,7 @@ const Plans = () => {
                     </p>
                 </div>
 
+                {/* Pricing Cards - Component Missing
                 <PricingCards
                     currentPlanId={effectivePlanId}
                     renderAction={(plan, isCurrent) => {
@@ -83,7 +84,7 @@ const Plans = () => {
                             </Button>
                         );
                     }}
-                />
+                /> */}
             </div>
         </DashboardLayout>
     );

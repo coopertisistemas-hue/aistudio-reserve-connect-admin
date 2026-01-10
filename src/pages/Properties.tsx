@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Plus, Search, Home } from "lucide-react";
 import DashboardLayout from "@/components/DashboardLayout";
-import PropertyDialog from "@/components/PropertyDialog";
-import PropertyCard from "@/components/PropertyCard";
+// import PropertyDialog from "@/components/PropertyDialog";
+// import PropertyCard from "@/components/PropertyCard";
 import { useProperties, Property, PropertyInput } from "@/hooks/useProperties";
 import DataTableSkeleton from "@/components/DataTableSkeleton";
 
@@ -119,25 +119,26 @@ const Properties = () => {
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredProperties.map((property) => (
-              <PropertyCard
+              {/* <PropertyCard
                 key={property.id}
                 property={property}
                 onEdit={handleEditProperty}
                 onDelete={handleDeleteClick}
-              />
+              /> */}
             ))}
           </div>
         )}
       </div>
 
       {/* Property Dialog */}
+      {/* Property Dialog - Component Missing
       <PropertyDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         property={selectedProperty}
         onSubmit={handleSubmit}
         isLoading={createProperty.isPending || updateProperty.isPending}
-      />
+      /> */}
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>

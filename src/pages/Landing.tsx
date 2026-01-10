@@ -35,7 +35,7 @@ import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import StatsSection from "@/components/landing/StatsSection";
 import WhyChooseUsSection from "@/components/landing/WhyChooseUsSection";
-import PricingSection from "@/components/landing/PricingSection";
+// import PricingSection from "@/components/landing/PricingSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
 import IntegrationsSection from "@/components/landing/IntegrationsSection";
@@ -133,7 +133,7 @@ const Landing = () => {
 
       <WhyChooseUsSection />
 
-      <PricingSection />
+      {/* <PricingSection /> */}
 
       <HowItWorksSection />
 
