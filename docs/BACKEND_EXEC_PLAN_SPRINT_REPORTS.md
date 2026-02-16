@@ -61,3 +61,36 @@
 **Risk notes + rollback notes**
 - PIX refunds are flagged pending; manual ops action required to complete refund
 - Rollback: drop `018_sprint2_cancellation_webhook_reconciliation.sql` objects if needed
+
+## Sprint 3: Ops/QA Hardening
+
+**What changed**
+- Expanded system health checks and ops dashboard views
+- Added retention helper functions with dry-run defaults
+- Added Sprint 3 verification scripts
+- Extended post-deploy verification checklist
+
+**Files changed**
+- `supabase/migrations/019_sprint3_ops_qa_hardening.sql`
+- `docs/verification/sprint3_ops_health_checks.sql`
+- `docs/verification/sprint3_retention_checks.sql`
+- `docs/verification/sprint3_smoke_tests.sql`
+- `docs/POST_DEPLOY_VERIFICATION.md`
+- `docs/RUNBOOK_INCIDENTS.md`
+- `docs/OPS_DASHBOARD_GUIDE.md`
+
+**SQL/functions added or updated**
+- `reserve.system_health_check` (expanded)
+- `reserve.ops_dashboard_summary`
+- `reserve.ops_dashboard_alerts`
+- `reserve.purge_old_audit_logs`
+- `reserve.purge_old_webhook_dedup`
+- `reserve.purge_old_reconciliation_runs`
+
+**Verification steps executed**
+- Not executed in this environment (requires Supabase connection)
+- Verification scripts: `docs/verification/sprint3_ops_health_checks.sql`, `docs/verification/sprint3_retention_checks.sql`, `docs/verification/sprint3_smoke_tests.sql`
+
+**Risk notes + rollback notes**
+- Retention helpers default to dry-run; destructive runs require explicit dry_run=false
+- Rollback: drop ops views/functions from `019_sprint3_ops_qa_hardening.sql` and reapply migration 016 version of system_health_check
