@@ -1,9 +1,9 @@
 # EDGE FUNCTIONS IMPLEMENTATION REPORT
 
-## ✅ Status: 9 Core Functions Created
+## ✅ Status: 12 Core Functions Created
 
 **Date**: 2026-02-16  
-**Progress**: 9 of 22 functions (41%)  
+**Progress**: 12 of 22 functions (55%)  
 **Status**: 🟢 Core MVP Functions Ready
 
 ---
@@ -185,6 +185,60 @@ curl -X POST /functions/v1/host_commit_booking \
 
 ---
 
+### ✅ 10. cancel_reservation
+**Purpose**: Cancel reservation with refund handling  
+**Status**: ✅ Complete  
+**File**: `supabase/functions/cancel_reservation/index.ts`  
+**Features**:
+- Idempotent cancellation requests
+- Stripe refunds (full by default)
+- PIX refund marked pending
+- Ledger reversals + inventory release
+
+**Usage**:
+```bash
+curl -X POST /functions/v1/cancel_reservation \
+  -d '{"reservation_id":"uuid","cancellation_reason":"guest_request"}'
+```
+
+---
+
+### ✅ 11. host_webhook_receiver
+**Purpose**: Receive Host Connect webhooks  
+**Status**: ✅ Complete  
+**File**: `supabase/functions/host_webhook_receiver/index.ts`  
+**Features**:
+- Signature verification (optional)
+- Event deduplication via host_webhook_events
+- Safe reservation state transitions
+
+**Usage**:
+```bash
+curl -X POST /functions/v1/host_webhook_receiver \
+  -H "X-Host-Signature: ..." \
+  -H "X-Host-Timestamp: ..." \
+  -d '{"event_id":"evt_123","event_type":"booking.cancelled"}'
+```
+
+---
+
+### ✅ 12. reconciliation_job_placeholder
+**Purpose**: Placeholder reconciliation job  
+**Status**: ✅ Complete  
+**File**: `supabase/functions/reconciliation_job_placeholder/index.ts`  
+**Features**:
+- Reports stuck payments/intents/webhooks/cancellations
+- Logs summary to reconciliation_runs
+- Dry-run support
+
+**Usage**:
+```bash
+curl -X POST /functions/v1/reconciliation_job_placeholder \
+  -d '{"dry_run":true}'
+```
+
+---
+
 ## 📊 Project Structure
 
 ```
@@ -217,8 +271,17 @@ supabase/functions/
 ├── finalize_reservation_after_payment/
 │   └── index.ts            # ✅ Finalize reservation
 │
-└── host_commit_booking/
-    └── index.ts            # ✅ Host commit
+├── host_commit_booking/
+│   └── index.ts            # ✅ Host commit
+│
+├── cancel_reservation/
+│   └── index.ts            # ✅ Cancellation
+│
+├── host_webhook_receiver/
+│   └── index.ts            # ✅ Host webhooks
+│
+└── reconciliation_job_placeholder/
+    └── index.ts            # ✅ Reconciliation placeholder
 ```
 
 ---
@@ -243,6 +306,13 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 PIX_PROVIDER=mercadopago
 PIX_API_KEY=TEST-...
+```
+
+**Host Connect**:
+```
+HOST_CONNECT_API_URL=https://api.host-connect.com/v1
+HOST_CONNECT_API_KEY=host_api_key_...
+HOST_CONNECT_WEBHOOK_SECRET=host_webhook_secret
 ```
 
 See `.env.example` for complete list.
@@ -270,6 +340,9 @@ supabase functions deploy poll_payment_status
 supabase functions deploy webhook_stripe
 supabase functions deploy finalize_reservation_after_payment
 supabase functions deploy host_commit_booking
+supabase functions deploy cancel_reservation
+supabase functions deploy host_webhook_receiver
+supabase functions deploy reconciliation_job_placeholder
 ```
 
 ### Step 3: Configure Stripe Webhook
@@ -300,36 +373,24 @@ supabase functions deploy host_commit_booking
 
 ### High Priority (MVP)
 
-#### 10. cancel_reservation
-**Purpose**: Cancel with refund  
-**Features**:
-- Policy validation (24h/48h/72h)
-- Refund calculation
-- Stripe/PIX refund
-- Ledger reversal entries
+#### 13. emit_event
+**Purpose**: Track analytics
 
 ### Medium Priority
 
-#### 11. get_cities_list
+#### 14. get_cities_list
 **Purpose**: List active cities
-
-#### 12. emit_event
-**Purpose**: Track analytics
-
-#### 13. host_webhook_receiver
-**Purpose**: Receive Host webhooks
 
 ### Lower Priority (Phase 2+)
 
-14. get_city_content (Portal integration)
-15. get_featured_sections
-16. get_ads_for_page
-17. track_ad_impression
-18. track_ad_click
-19. submit_review
-20. update_traveler_details
-21. get_user_reservations
-22. daily_rollup_job
+15. get_city_content (Portal integration)
+16. get_featured_sections
+17. get_ads_for_page
+18. track_ad_impression
+19. track_ad_click
+20. submit_review
+21. update_traveler_details
+22. get_user_reservations
 
 ---
 
@@ -351,6 +412,9 @@ supabase functions deploy host_commit_booking
 - [ ] Test webhook_stripe (via Stripe CLI)
 - [ ] Test finalize_reservation_after_payment
 - [ ] Test host_commit_booking
+- [ ] Test cancel_reservation
+- [ ] Test host_webhook_receiver
+- [ ] Test reconciliation_job_placeholder
 
 ### End-to-End
 - [ ] Full booking flow: search → intent → payment → confirmation
@@ -363,7 +427,7 @@ supabase functions deploy host_commit_booking
 ## 📈 Metrics
 
 **Code Statistics**:
-- Total functions: 9 created, 13 remaining
+- Total functions: 12 created, 10 remaining
 - Lines of TypeScript: ~2,500
 - Average function size: ~350 lines
 - Test coverage: TBD
@@ -375,7 +439,10 @@ supabase functions deploy host_commit_booking
 - ✅ Stripe payments
 - ✅ PIX payments (BR)
 - ✅ Webhook handling
+- ✅ Host webhook handling
 - ✅ Ledger entries
+- ✅ Reservation cancellation
+- ✅ Reconciliation placeholder
 - ✅ Analytics events
 - ✅ Error handling
 - ✅ Idempotency
@@ -393,13 +460,13 @@ supabase functions deploy host_commit_booking
 - ✅ Webhook handling
 - ✅ Finalize reservation
 - ✅ Host commit
-- ⏳ Cancellation
+- ✅ Cancellation
 - ⏳ Basic analytics
 
 ### Critical Path
-The 9 created functions cover the **discovery → intent → payment → finalize → host commit** flow. 
+The 12 created functions cover the **discovery → intent → payment → finalize → host commit → cancel** flow. 
 
-Next function (cancel) completes the end-to-end booking lifecycle for MVP.
+Next function (emit_event) completes MVP analytics coverage.
 
 ---
 

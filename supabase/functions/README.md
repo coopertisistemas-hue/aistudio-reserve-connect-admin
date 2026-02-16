@@ -71,31 +71,37 @@ Backend-for-Frontend (BFF) Edge Functions for Reserve Connect booking platform.
 **Input**: reservation_id
 **Output**: host_booking_id, status
 
-## Functions to Create (Next)
-
-### 10. cancel_reservation
-**Purpose**: Cancel reservation with policy check
+### 10. cancel_reservation ✅
+**Purpose**: Cancel reservation with refund handling
 **Auth**: Authenticated (owner) or System
 **Input**: reservation_id, reason
 **Output**: refund_amount, status
 
-### 11. get_cities_list
-**Purpose**: List active cities
-**Auth**: Public
-**Output**: cities array
+### 11. host_webhook_receiver ✅
+**Purpose**: Receive Host Connect webhooks
+**Auth**: Webhook signature
+**Events**: booking.created, booking.updated, booking.cancelled
 
-### 12. emit_event
+### 12. reconciliation_job_placeholder ✅
+**Purpose**: Reconciliation run placeholder
+**Auth**: System
+**Input**: run_id, dry_run
+**Output**: summary report
+
+## Functions to Create (Next)
+
+### 13. emit_event
 **Purpose**: Track analytics events
 **Auth**: Public/System
 **Input**: event_name, metadata
 **Output**: success boolean
 
-### 13. host_webhook_receiver
-**Purpose**: Receive Host Connect webhooks
-**Auth**: Webhook signature
-**Events**: booking.created, booking.updated, booking.cancelled
+### 14. get_cities_list
+**Purpose**: List active cities
+**Auth**: Public
+**Output**: cities array
 
-### 14-22. [Additional functions for Portal integration, ADS, etc.]
+### 15-22. [Additional functions for Portal integration, ADS, etc.]
 
 ## Configuration
 
@@ -129,6 +135,9 @@ supabase functions deploy poll_payment_status
 supabase functions deploy webhook_stripe
 supabase functions deploy finalize_reservation_after_payment
 supabase functions deploy host_commit_booking
+supabase functions deploy cancel_reservation
+supabase functions deploy host_webhook_receiver
+supabase functions deploy reconciliation_job_placeholder
 ```
 
 ### Deploy Single Function
@@ -252,9 +261,9 @@ All functions log to Supabase Logs:
 
 ## Next Steps
 
-1. ✅ Create core functions (9 created)
-2. ✅ Create finalization and host commit functions
-3. ⏳ Create webhook handlers
+1. ✅ Create core functions (12 created)
+2. ✅ Create finalization, host commit, cancellation, and webhook handlers
+3. ✅ Add reconciliation placeholder
 4. ⏳ Add comprehensive error handling
 5. ⏳ Add rate limiting middleware
 6. ⏳ Create integration tests
@@ -274,8 +283,8 @@ Site App → Edge Functions → Supabase DB
 
 ## Status
 
-**Current**: 9/22 functions created
-**Next**: cancel_reservation, host_webhook_receiver
+**Current**: 12/22 functions created
+**Next**: emit_event, get_cities_list
 
 ## Support
 
