@@ -59,19 +59,19 @@ Backend-for-Frontend (BFF) Edge Functions for Reserve Connect booking platform.
 **Features**: Automatic ledger entries, reservation creation trigger
 **File**: `webhook_stripe/index.ts`
 
-## Functions to Create (Next)
-
-### 8. finalize_reservation_after_payment
-**Purpose**: Convert booking intent to reservation after payment
+### 8. finalize_reservation_after_payment ✅
+**Purpose**: Convert intent to reservation after payment
 **Auth**: System (internal)
-**Trigger**: Webhook success
-**Output**: reservation_id, confirmation_code
+**Input**: payment_id or gateway_payment_id
+**Output**: reservation_id, commission breakdown
 
-### 9. host_commit_booking
+### 9. host_commit_booking ✅
 **Purpose**: Commit reservation to Host Connect
 **Auth**: System
-**Retry**: 3 attempts with exponential backoff
-**Features**: Circuit breaker pattern
+**Input**: reservation_id
+**Output**: host_booking_id, status
+
+## Functions to Create (Next)
 
 ### 10. cancel_reservation
 **Purpose**: Cancel reservation with policy check
@@ -127,6 +127,8 @@ supabase functions deploy create_payment_intent_stripe
 supabase functions deploy create_pix_charge
 supabase functions deploy poll_payment_status
 supabase functions deploy webhook_stripe
+supabase functions deploy finalize_reservation_after_payment
+supabase functions deploy host_commit_booking
 ```
 
 ### Deploy Single Function
@@ -250,8 +252,8 @@ All functions log to Supabase Logs:
 
 ## Next Steps
 
-1. ✅ Create core functions (7 created)
-2. ⏳ Create finalization and host commit functions
+1. ✅ Create core functions (9 created)
+2. ✅ Create finalization and host commit functions
 3. ⏳ Create webhook handlers
 4. ⏳ Add comprehensive error handling
 5. ⏳ Add rate limiting middleware
@@ -272,8 +274,8 @@ Site App → Edge Functions → Supabase DB
 
 ## Status
 
-**Current**: 7/22 functions created
-**Next**: finalize_reservation_after_payment, host_commit_booking
+**Current**: 9/22 functions created
+**Next**: cancel_reservation, host_webhook_receiver
 
 ## Support
 
