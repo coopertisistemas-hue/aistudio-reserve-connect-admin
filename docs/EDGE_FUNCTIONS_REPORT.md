@@ -230,6 +230,7 @@ curl -X POST /functions/v1/host_webhook_receiver \
 - Reports stuck payments/intents/webhooks/cancellations
 - Logs summary to reconciliation_runs
 - Dry-run support
+- Schedule via Supabase scheduled functions or external cron to call this endpoint
 
 **Usage**:
 ```bash
