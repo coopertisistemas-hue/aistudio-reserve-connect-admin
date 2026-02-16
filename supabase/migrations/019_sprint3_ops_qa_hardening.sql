@@ -72,8 +72,8 @@ BEGIN
 
     -- Failed payment webhooks
     SELECT COUNT(*) INTO v_count
-    FROM reserve.processed_webhooks
-    WHERE status = 'failed'
+    FROM reserve.processed_webhooks pw
+    WHERE pw.status = 'failed'
       AND received_at > NOW() - INTERVAL '24 hours';
     check_name := 'Failed Payment Webhooks';
     status := CASE WHEN v_count = 0 THEN 'OK'
@@ -87,8 +87,8 @@ BEGIN
 
     -- Failed host webhooks
     SELECT COUNT(*) INTO v_count
-    FROM reserve.host_webhook_events
-    WHERE status = 'failed'
+    FROM reserve.host_webhook_events he
+    WHERE he.status = 'failed'
       AND created_at > NOW() - INTERVAL '24 hours';
     check_name := 'Failed Host Webhooks';
     status := CASE WHEN v_count = 0 THEN 'OK'
@@ -102,8 +102,8 @@ BEGIN
 
     -- Pending cancellations
     SELECT COUNT(*) INTO v_count
-    FROM reserve.cancellation_requests
-    WHERE status = 'processing'
+    FROM reserve.cancellation_requests cr
+    WHERE cr.status = 'processing'
       AND created_at < NOW() - INTERVAL '15 minutes';
     check_name := 'Pending Cancellations';
     status := CASE WHEN v_count = 0 THEN 'OK'

@@ -21,16 +21,17 @@ WHERE schemaname = 'reserve'
 
 -- 3) State transition test (rollback)
 BEGIN;
-WITH target AS (
-  SELECT id FROM reserve.reservations WHERE status = 'confirmed' LIMIT 1
-)
+CREATE TEMP TABLE temp_target(id uuid);
+INSERT INTO temp_target
+SELECT id FROM reserve.reservations WHERE status = 'confirmed' LIMIT 1;
+
 UPDATE reserve.reservations
 SET status = 'cancelled'
-WHERE id IN (SELECT id FROM target);
+WHERE id IN (SELECT id FROM temp_target);
 
 SELECT id, status
 FROM reserve.reservations
-WHERE id IN (SELECT id FROM target);
+WHERE id IN (SELECT id FROM temp_target);
 ROLLBACK;
 
 -- 4) Ledger balance check (recent refunds)
