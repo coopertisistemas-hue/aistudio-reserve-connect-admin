@@ -35,8 +35,18 @@ CREATE INDEX IF NOT EXISTS idx_cancellation_requests_status
 ON reserve.cancellation_requests(status, created_at);
 
 ALTER TABLE reserve.cancellation_requests ENABLE ROW LEVEL SECURITY;
-CREATE POLICY IF NOT EXISTS cancellation_requests_service_all
-ON reserve.cancellation_requests FOR ALL TO service_role USING (true);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'reserve'
+          AND tablename = 'cancellation_requests'
+          AND policyname = 'cancellation_requests_service_all'
+    ) THEN
+        CREATE POLICY cancellation_requests_service_all
+        ON reserve.cancellation_requests FOR ALL TO service_role USING (true);
+    END IF;
+END $$;
 
 -- ============================================
 -- SECTION 2: HOST WEBHOOK EVENTS EXTENSIONS
@@ -67,8 +77,18 @@ CREATE INDEX IF NOT EXISTS idx_reconciliation_runs_created_at
 ON reserve.reconciliation_runs(created_at DESC);
 
 ALTER TABLE reserve.reconciliation_runs ENABLE ROW LEVEL SECURITY;
-CREATE POLICY IF NOT EXISTS reconciliation_runs_service_all
-ON reserve.reconciliation_runs FOR ALL TO service_role USING (true);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'reserve'
+          AND tablename = 'reconciliation_runs'
+          AND policyname = 'reconciliation_runs_service_all'
+    ) THEN
+        CREATE POLICY reconciliation_runs_service_all
+        ON reserve.reconciliation_runs FOR ALL TO service_role USING (true);
+    END IF;
+END $$;
 
 -- ============================================
 -- SECTION 4: INVENTORY RELEASE HELPER
