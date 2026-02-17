@@ -2,12 +2,22 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
 import { useAuth } from '../lib/auth'
+import { useSiteSettings } from '../hooks/useSiteSettings'
+import { Skeleton } from './ui/Skeleton'
 
 export default function Header() {
   const { t } = useTranslation()
   const { session, signOut } = useAuth()
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
+  const { settings, loading } = useSiteSettings()
+
+  // Use dynamic site name or fallback
+  const siteName = settings?.site_name || t('common.brand')
+  
+  // Use dynamic CTA or fallback
+  const ctaLabel = settings?.primary_cta_label || t('common.search')
+  const ctaLink = settings?.primary_cta_link || '/search'
 
   return (
     <header 
@@ -44,13 +54,17 @@ export default function Header() {
             color: '#fff',
             fontSize: '1rem'
           }}>R</span>
-          {t('common.brand')}
+          {loading ? (
+            <Skeleton width="120px" height="24px" />
+          ) : (
+            siteName
+          )}
         </Link>
         
         <nav style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           {!isAdmin && (
             <NavLink 
-              to="/search" 
+              to={ctaLink} 
               className="chip"
               style={({ isActive }) => ({
                 background: isActive ? 'var(--accent-500)' : 'var(--sage-100)',
@@ -58,7 +72,11 @@ export default function Header() {
                 transition: 'all 0.2s ease'
               })}
             >
-              {t('common.search')}
+              {loading ? (
+                <Skeleton width="60px" height="16px" />
+              ) : (
+                ctaLabel
+              )}
             </NavLink>
           )}
           
