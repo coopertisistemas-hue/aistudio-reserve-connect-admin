@@ -1,9 +1,9 @@
 # EDGE FUNCTIONS IMPLEMENTATION REPORT
 
-## ✅ Status: 12 Core Functions Created
+## ✅ Status: 16 Core + Admin Functions Created
 
 **Date**: 2026-02-16  
-**Progress**: 12 of 22 functions (55%)  
+**Progress**: 16 functions delivered (public + admin)  
 **Status**: 🟢 Core MVP Functions Ready
 
 ---
@@ -240,6 +240,21 @@ curl -X POST /functions/v1/reconciliation_job_placeholder \
 
 ---
 
+### ✅ Admin Functions (Internal)
+**Purpose**: Admin-only data access with allowlist/role checks  
+**Status**: ✅ Complete  
+**Files**:
+- `supabase/functions/admin_list_properties/index.ts`
+- `supabase/functions/admin_list_reservations/index.ts`
+- `supabase/functions/admin_get_reservation/index.ts`
+- `supabase/functions/admin_ops_summary/index.ts`
+
+**Usage**:
+```bash
+curl -X POST /functions/v1/admin_list_properties \
+  -H "Authorization: Bearer <admin_access_token>"
+```
+
 ## 📊 Project Structure
 
 ```
@@ -283,6 +298,16 @@ supabase/functions/
 │
 └── reconciliation_job_placeholder/
     └── index.ts            # ✅ Reconciliation placeholder
+
+    # Admin functions
+    admin_list_properties/
+    └── index.ts            # ✅ Admin properties
+    admin_list_reservations/
+    └── index.ts            # ✅ Admin reservations
+    admin_get_reservation/
+    └── index.ts            # ✅ Admin reservation detail
+    admin_ops_summary/
+    └── index.ts            # ✅ Admin ops summary
 ```
 
 ---
@@ -344,6 +369,10 @@ supabase functions deploy host_commit_booking
 supabase functions deploy cancel_reservation
 supabase functions deploy host_webhook_receiver
 supabase functions deploy reconciliation_job_placeholder
+supabase functions deploy admin_list_properties
+supabase functions deploy admin_list_reservations
+supabase functions deploy admin_get_reservation
+supabase functions deploy admin_ops_summary
 ```
 
 ### Step 3: Configure Stripe Webhook
@@ -428,7 +457,7 @@ supabase functions deploy reconciliation_job_placeholder
 ## 📈 Metrics
 
 **Code Statistics**:
-- Total functions: 12 created, 10 remaining
+- Total functions: 16 created (incl admin), 10 remaining (public roadmap)
 - Lines of TypeScript: ~2,500
 - Average function size: ~350 lines
 - Test coverage: TBD
@@ -444,6 +473,7 @@ supabase functions deploy reconciliation_job_placeholder
 - ✅ Ledger entries
 - ✅ Reservation cancellation
 - ✅ Reconciliation placeholder
+- ✅ Admin ops endpoints
 - ✅ Analytics events
 - ✅ Error handling
 - ✅ Idempotency

@@ -1,0 +1,89 @@
+{
+  "common": {
+    "brand": "Reserve Connect",
+    "search": "Buscar",
+    "dates": "Fechas",
+    "guests": "Huéspedes",
+    "adults": "Adultos",
+    "children": "Niños",
+    "nights": "noches",
+    "admin": "Admin",
+    "viewDetails": "Ver detalles",
+    "reserve": "Reservar",
+    "back": "Volver",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "empty": "Sin resultados",
+    "language": "Idioma"
+  },
+  "landing": {
+    "heroTitle": "Urubici con confort y reserva segura",
+    "heroSubtitle": "Propiedades verificadas, pago seguro y soporte local para tu viaje.",
+    "heroCta": "Buscar alojamientos",
+    "trustTitle": "Reserva premium, sin sorpresas",
+    "trustPoints": [
+      "Propiedades verificadas y evaluadas",
+      "Pago seguro con Stripe o PIX",
+      "Confirmación rápida y soporte local"
+    ],
+    "featuredTitle": "Destacados en Urubici"
+  },
+  "search": {
+    "title": "Encuentra tu alojamiento",
+    "filters": "Filtros",
+    "sort": "Ordenar",
+    "priceRange": "Rango de precio",
+    "sortPriceAsc": "Precio ascendente",
+    "sortPriceDesc": "Precio descendente",
+    "sortRating": "Valoración",
+    "maxPricePlaceholder": "Hasta",
+    "results": "Resultados",
+    "noResults": "No hay disponibilidad para estas fechas."
+  },
+  "property": {
+    "amenities": "Servicios",
+    "policies": "Políticas",
+    "rooms": "Opciones de habitación",
+    "selectRoom": "Seleccionar",
+    "perNight": "por noche",
+    "total": "Total"
+  },
+  "booking": {
+    "title": "Finalizar reserva",
+    "step1": "1. Confirma datos",
+    "step2": "2. Elige pago",
+    "step3": "3. Seguimiento",
+    "paymentMethod": "Método de pago",
+    "stripe": "Tarjeta (Stripe)",
+    "pix": "PIX instantáneo",
+    "payNow": "Iniciar pago",
+    "pending": "Pago en procesamiento",
+    "confirmation": "Reserva confirmada",
+    "code": "Código de confirmación",
+    "status": "Estado del pago",
+    "stripeNotice": "Stripe iniciado. Espera la confirmación.",
+    "confirmationHint": "La confirmación se enviará por correo al finalizar.",
+    "awaiting": "En espera",
+    "guestsLabel": "huéspedes"
+  },
+  "admin": {
+    "loginTitle": "Acceso admin",
+    "email": "Correo",
+    "password": "Contraseña",
+    "signIn": "Entrar",
+    "signOut": "Salir",
+    "dashboard": "Dashboard",
+    "properties": "Propiedades",
+    "reservations": "Reservas",
+    "ops": "Operaciones",
+    "health": "Salud del sistema",
+    "recon": "Reconciliación",
+    "runRecon": "Ejecutar reconciliación",
+    "emptyProperties": "Sin propiedades",
+    "emptyReservations": "Sin reservas",
+    "opsSummary": "Resumen operativo",
+    "noOpsData": "Sin datos operativos",
+    "runId": "Run",
+    "cancelReservation": "Cancelar"
+  }
+}

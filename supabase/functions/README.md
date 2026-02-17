@@ -88,6 +88,15 @@ Backend-for-Frontend (BFF) Edge Functions for Reserve Connect booking platform.
 **Input**: run_id, dry_run
 **Output**: summary report
 
+### Admin Functions ✅
+**Purpose**: Admin-only data access
+**Auth**: Supabase Auth + admin role / allowlist
+**Functions**:
+- `admin_list_properties`
+- `admin_list_reservations`
+- `admin_get_reservation`
+- `admin_ops_summary`
+
 ## Functions to Create (Next)
 
 ### 13. emit_event
@@ -261,7 +270,7 @@ All functions log to Supabase Logs:
 
 ## Next Steps
 
-1. ✅ Create core functions (12 created)
+1. ✅ Create core functions (16 created incl admin)
 2. ✅ Create finalization, host commit, cancellation, and webhook handlers
 3. ✅ Add reconciliation placeholder
 4. ⏳ Add comprehensive error handling
@@ -283,7 +292,7 @@ Site App → Edge Functions → Supabase DB
 
 ## Status
 
-**Current**: 12/22 functions created
+**Current**: 16 functions created (incl admin)
 **Next**: emit_event, get_cities_list
 
 ## Support

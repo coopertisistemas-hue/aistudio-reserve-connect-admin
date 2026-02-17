@@ -6,22 +6,105 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-idempotency-key',
 }
 
+// Rate limiting configuration
+const RATE_LIMITS = {
+  perIp: { max: 15, windowMinutes: 1 },
+  perSession: { max: 8, windowMinutes: 5 },
+}
+
+// In-memory rate limit store
+const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
+
+const supabaseAdmin = createClient(
+  Deno.env.get('SUPABASE_URL') ?? '',
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+)
+
+// Helper: Check rate limit
+async function checkRateLimit(
+  identifier: string, 
+  maxRequests: number, 
+  windowMinutes: number
+): Promise<{ allowed: boolean; remaining: number; resetTime: number }> {
+  const now = Date.now()
+  const windowMs = windowMinutes * 60 * 1000
+  const key = `rate_limit:${identifier}`
+  
+  let record = rateLimitStore.get(key)
+  
+  if (!record || now > record.resetTime) {
+    record = { count: 0, resetTime: now + windowMs }
+  }
+  
+  if (record.count >= maxRequests) {
+    return { allowed: false, remaining: 0, resetTime: record.resetTime }
+  }
+  
+  record.count++
+  rateLimitStore.set(key, record)
+  
+  return { allowed: true, remaining: maxRequests - record.count, resetTime: record.resetTime }
+}
+
+// Helper: Get client IP
+function getClientIp(req: Request): string {
+  const forwarded = req.headers.get('x-forwarded-for')
+  if (forwarded) return forwarded.split(',')[0].trim()
+  return 'unknown'
+}
+
+// Helper: Validate amount
+function validateAmount(amount: number): { valid: boolean; error?: string } {
+  if (typeof amount !== 'number' || isNaN(amount)) {
+    return { valid: false, error: 'Invalid amount' }
+  }
+  if (amount <= 0) return { valid: false, error: 'Amount must be positive' }
+  if (amount > 100000) return { valid: false, error: 'Amount exceeds maximum allowed (R$ 100,000)' }
+  if (amount < 1) return { valid: false, error: 'Amount below minimum (R$ 1)' }
+  return { valid: true }
+}
+
+// Helper: Calculate IOF (Brazilian tax)
+function calculateIof(amount: number): number {
+  return Math.round(amount * 0.0038 * 100) / 100
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
 
-  try {
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      { global: { headers: { Authorization: req.headers.get('Authorization')! } } }
-    )
+  const startTime = Date.now()
+  const clientIp = getClientIp(req)
 
-    const supabaseAdmin = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+  try {
+    // Check IP rate limit
+    const ipLimit = await checkRateLimit(
+      `ip:${clientIp}:pix`,
+      RATE_LIMITS.perIp.max,
+      RATE_LIMITS.perIp.windowMinutes
     )
+    
+    if (!ipLimit.allowed) {
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: { 
+            code: 'RATE_LIMIT_EXCEEDED', 
+            message: 'Too many PIX requests from this IP',
+            retryAfter: Math.ceil((ipLimit.resetTime - Date.now()) / 1000)
+          } 
+        }),
+        { 
+          headers: { 
+            ...corsHeaders, 
+            'Content-Type': 'application/json',
+            'Retry-After': Math.ceil((ipLimit.resetTime - Date.now()) / 1000).toString()
+          }, 
+          status: 429 
+        }
+      )
+    }
 
     const { intent_id, expires_in_minutes = 15 } = await req.json()
 
@@ -46,25 +129,66 @@ serve(async (req) => {
       )
     }
 
-    // Check if intent is still valid
-    if (intent.status !== 'intent_created') {
+    // Check session rate limit
+    if (intent.session_id) {
+      const sessionLimit = await checkRateLimit(
+        `session:${intent.session_id}:pix`,
+        RATE_LIMITS.perSession.max,
+        RATE_LIMITS.perSession.windowMinutes
+      )
+      
+      if (!sessionLimit.allowed) {
+        return new Response(
+          JSON.stringify({ 
+            success: false, 
+            error: { 
+              code: 'RATE_LIMIT_EXCEEDED', 
+              message: 'Too many PIX attempts for this session',
+              retryAfter: Math.ceil((sessionLimit.resetTime - Date.now()) / 1000)
+            } 
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 }
+        )
+      }
+    }
+
+    // Validate intent state
+    const validStates = ['intent_created', 'payment_failed']
+    if (!validStates.includes(intent.status)) {
       return new Response(
-        JSON.stringify({ success: false, error: { code: 'RESERVE_001', message: `Invalid intent status: ${intent.status}` } }),
+        JSON.stringify({ 
+          success: false, 
+          error: { 
+            code: 'RESERVE_003', 
+            message: `Invalid intent status: ${intent.status}`,
+            details: `Expected one of: ${validStates.join(', ')}`
+          } 
+        }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
       )
     }
 
+    // Check expiration
     if (new Date(intent.expires_at) < new Date()) {
       return new Response(
-        JSON.stringify({ success: false, error: { code: 'RESERVE_001', message: 'Booking intent has expired' } }),
+        JSON.stringify({ success: false, error: { code: 'RESERVE_004', message: 'Booking intent has expired' } }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
+    // Validate amount
+    const amountValidation = validateAmount(intent.total_amount)
+    if (!amountValidation.valid) {
+      return new Response(
+        JSON.stringify({ success: false, error: { code: 'RESERVE_005', message: amountValidation.error } }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
       )
     }
 
     // Idempotency key
-    const idempotencyKey = req.headers.get('x-idempotency-key') || `pix_${intent_id}_${Date.now()}`
+    const idempotencyKey = req.headers.get('x-idempotency-key') || `pix:${intent_id}:${Date.now()}`
 
-    // Check for existing PIX charge
+    // Check for existing PIX payment
     const { data: existingPayment } = await supabaseAdmin
       .from('payments')
       .select('*')
@@ -72,9 +196,10 @@ serve(async (req) => {
       .eq('gateway', 'mercadopago')
       .eq('payment_method', 'pix')
       .in('status', ['pending', 'processing'])
-      .single()
+      .maybeSingle()
 
     if (existingPayment?.pix_qr_code) {
+      const timeElapsed = Date.now() - startTime
       return new Response(
         JSON.stringify({
           success: true,
@@ -83,18 +208,42 @@ serve(async (req) => {
             qr_code_base64: existingPayment.pix_qr_code,
             copy_paste_key: existingPayment.pix_copy_paste_key,
             expires_at: existingPayment.pix_expires_at,
-            cached: true
+            cached: true,
+            processing_time_ms: timeElapsed
           }
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
-    // Calculate IOF (0.38% for PIX in Brazil)
-    const iofAmount = Math.round(intent.total_amount * 0.0038 * 100) / 100
+    // Check for already succeeded payment
+    const { data: succeededPayment } = await supabaseAdmin
+      .from('payments')
+      .select('*')
+      .eq('booking_intent_id', intent_id)
+      .eq('payment_method', 'pix')
+      .eq('status', 'succeeded')
+      .maybeSingle()
+
+    if (succeededPayment) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: {
+            code: 'RESERVE_006',
+            message: 'PIX payment already completed for this intent',
+            details: { payment_id: succeededPayment.id }
+          }
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 409 }
+      )
+    }
+
+    // Calculate IOF and total
+    const iofAmount = calculateIof(intent.total_amount)
     const totalWithIof = intent.total_amount + iofAmount
 
-    // PIX Provider Integration (MercadoPago example)
+    // Get PIX provider configuration
     const pixProvider = Deno.env.get('PIX_PROVIDER') || 'mercadopago'
     const pixApiKey = Deno.env.get('PIX_API_KEY')
 
@@ -103,10 +252,10 @@ serve(async (req) => {
     }
 
     let pixResponse: any
+    const providerTimeout = 20000 // 20 seconds
 
     if (pixProvider === 'mercadopago') {
-      // MercadoPago PIX integration
-      const mpResponse = await fetch('https://api.mercadopago.com/v1/payments', {
+      const mpPromise = fetch('https://api.mercadopago.com/v1/payments', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${pixApiKey}`,
@@ -127,15 +276,22 @@ serve(async (req) => {
         })
       })
 
+      const mpResponse = await Promise.race([
+        mpPromise,
+        new Promise<never>((_, reject) => 
+          setTimeout(() => reject(new Error('PIX provider timeout')), providerTimeout)
+        )
+      ]) as Response
+
       if (!mpResponse.ok) {
         const error = await mpResponse.json()
         throw new Error(`MercadoPago error: ${JSON.stringify(error)}`)
       }
 
       pixResponse = await mpResponse.json()
+
     } else if (pixProvider === 'openpix') {
-      // OpenPIX integration
-      const opResponse = await fetch('https://api.openpix.com.br/api/v1/charge', {
+      const opPromise = fetch('https://api.openpix.com.br/api/v1/charge', {
         method: 'POST',
         headers: {
           'Authorization': pixApiKey,
@@ -143,7 +299,7 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           correlationID: intent_id,
-          value: Math.round(totalWithIof * 100), // In cents
+          value: Math.round(totalWithIof * 100),
           comment: `Booking at ${intent.properties_map?.name}`,
           customer: {
             name: `${intent.guest_first_name || 'Guest'} ${intent.guest_last_name || ''}`.trim(),
@@ -151,6 +307,13 @@ serve(async (req) => {
           }
         })
       })
+
+      const opResponse = await Promise.race([
+        opPromise,
+        new Promise<never>((_, reject) => 
+          setTimeout(() => reject(new Error('PIX provider timeout')), providerTimeout)
+        )
+      ]) as Response
 
       if (!opResponse.ok) {
         const error = await opResponse.json()
@@ -167,7 +330,7 @@ serve(async (req) => {
     expiresAt.setMinutes(expiresAt.getMinutes() + expires_in_minutes)
 
     // Create payment record
-    const { data: payment } = await supabaseAdmin
+    const { data: payment, error: paymentError } = await supabaseAdmin
       .from('payments')
       .insert({
         booking_intent_id: intent_id,
@@ -187,11 +350,40 @@ serve(async (req) => {
           pix_provider: pixProvider,
           iof_amount: iofAmount,
           total_with_iof: totalWithIof,
-          raw_response: pixResponse
+          client_ip: clientIp,
+          user_agent: req.headers.get('user-agent')
         }
       })
       .select()
       .single()
+
+    if (paymentError) {
+      if (paymentError.code === '23505') {
+        // Duplicate - fetch existing
+        const { data: dupPayment } = await supabaseAdmin
+          .from('payments')
+          .select('*')
+          .eq('idempotency_key', idempotencyKey)
+          .single()
+        
+        if (dupPayment) {
+          return new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                pix_id: dupPayment.gateway_payment_id,
+                qr_code_base64: dupPayment.pix_qr_code,
+                copy_paste_key: dupPayment.pix_copy_paste_key,
+                expires_at: dupPayment.pix_expires_at,
+                cached: true
+              }
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          )
+        }
+      }
+      throw paymentError
+    }
 
     // Update intent status
     await supabaseAdmin
@@ -215,9 +407,12 @@ serve(async (req) => {
         gateway: pixProvider,
         amount: intent.total_amount,
         iof_amount: iofAmount,
-        payment_method: 'pix'
+        payment_method: 'pix',
+        rate_limit_remaining: ipLimit.remaining
       }
     })
+
+    const processingTime = Date.now() - startTime
 
     return new Response(
       JSON.stringify({
@@ -230,7 +425,12 @@ serve(async (req) => {
           amount: intent.total_amount,
           iof_amount: iofAmount,
           total_with_iof: totalWithIof,
-          payment_id: payment.id
+          payment_id: payment.id,
+          rate_limit: {
+            remaining: ipLimit.remaining,
+            reset_at: new Date(ipLimit.resetTime).toISOString()
+          },
+          processing_time_ms: processingTime
         }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -238,8 +438,19 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in create_pix_charge:', error)
+    
+    const processingTime = Date.now() - startTime
+    
     return new Response(
-      JSON.stringify({ success: false, error: { code: 'RESERVE_010', message: 'Internal error', details: error.message } }),
+      JSON.stringify({ 
+        success: false, 
+        error: { 
+          code: 'RESERVE_010', 
+          message: 'Internal error',
+          details: error.message,
+          processing_time_ms: processingTime
+        } 
+      }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     )
   }

@@ -1,0 +1,89 @@
+{
+  "common": {
+    "brand": "Reserve Connect",
+    "search": "Search",
+    "dates": "Dates",
+    "guests": "Guests",
+    "adults": "Adults",
+    "children": "Children",
+    "nights": "nights",
+    "admin": "Admin",
+    "viewDetails": "View details",
+    "reserve": "Reserve",
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "empty": "No results found",
+    "language": "Language"
+  },
+  "landing": {
+    "heroTitle": "Urubici stays with comfort and secure booking",
+    "heroSubtitle": "Verified homes, secure payment, and local support for your mountain escape.",
+    "heroCta": "Search stays",
+    "trustTitle": "Premium booking, no surprises",
+    "trustPoints": [
+      "Verified, reviewed properties",
+      "Secure payment via Stripe or PIX",
+      "Fast confirmation and local support"
+    ],
+    "featuredTitle": "Featured stays in Urubici"
+  },
+  "search": {
+    "title": "Find your stay",
+    "filters": "Filters",
+    "sort": "Sort",
+    "priceRange": "Price range",
+    "sortPriceAsc": "Price ascending",
+    "sortPriceDesc": "Price descending",
+    "sortRating": "Rating",
+    "maxPricePlaceholder": "Up to",
+    "results": "Results",
+    "noResults": "No properties available for these dates."
+  },
+  "property": {
+    "amenities": "Amenities",
+    "policies": "Policies",
+    "rooms": "Room options",
+    "selectRoom": "Select room",
+    "perNight": "per night",
+    "total": "Total"
+  },
+  "booking": {
+    "title": "Complete booking",
+    "step1": "1. Confirm details",
+    "step2": "2. Choose payment",
+    "step3": "3. Tracking",
+    "paymentMethod": "Payment method",
+    "stripe": "Card (Stripe)",
+    "pix": "PIX instant",
+    "payNow": "Start payment",
+    "pending": "Payment processing",
+    "confirmation": "Booking confirmed",
+    "code": "Confirmation code",
+    "status": "Payment status",
+    "stripeNotice": "Stripe initiated. Await payment confirmation.",
+    "confirmationHint": "Confirmation will be sent by email once finalized.",
+    "awaiting": "Awaiting",
+    "guestsLabel": "guests"
+  },
+  "admin": {
+    "loginTitle": "Admin sign in",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "dashboard": "Dashboard",
+    "properties": "Properties",
+    "reservations": "Reservations",
+    "ops": "Operations",
+    "health": "System health",
+    "recon": "Reconciliation",
+    "runRecon": "Run reconciliation",
+    "emptyProperties": "No properties",
+    "emptyReservations": "No reservations",
+    "opsSummary": "Operational summary",
+    "noOpsData": "No operational data",
+    "runId": "Run",
+    "cancelReservation": "Cancel"
+  }
+}

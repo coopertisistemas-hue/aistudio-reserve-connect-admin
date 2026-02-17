@@ -1,0 +1,89 @@
+{
+  "common": {
+    "brand": "Reserve Connect",
+    "search": "Buscar",
+    "dates": "Datas",
+    "guests": "Hóspedes",
+    "adults": "Adultos",
+    "children": "Crianças",
+    "nights": "noites",
+    "admin": "Admin",
+    "viewDetails": "Ver detalhes",
+    "reserve": "Reservar",
+    "back": "Voltar",
+    "loading": "Carregando...",
+    "error": "Algo deu errado",
+    "empty": "Nenhum resultado encontrado",
+    "language": "Idioma"
+  },
+  "landing": {
+    "heroTitle": "Urubici com conforto e reserva segura",
+    "heroSubtitle": "Hospedagens verificadas, pagamento seguro e suporte local para a sua viagem na serra catarinense.",
+    "heroCta": "Buscar hospedagens",
+    "trustTitle": "Reserva premium, sem surpresas",
+    "trustPoints": [
+      "Propriedades verificadas e avaliadas",
+      "Pagamento seguro via Stripe ou PIX",
+      "Confirmação rápida e suporte local"
+    ],
+    "featuredTitle": "Opções em destaque em Urubici"
+  },
+  "search": {
+    "title": "Encontre sua hospedagem",
+    "filters": "Filtros",
+    "sort": "Ordenar",
+    "priceRange": "Faixa de preço",
+    "sortPriceAsc": "Preço crescente",
+    "sortPriceDesc": "Preço decrescente",
+    "sortRating": "Avaliação",
+    "maxPricePlaceholder": "Até R$",
+    "results": "Resultados",
+    "noResults": "Nenhuma hospedagem disponível para essas datas."
+  },
+  "property": {
+    "amenities": "Comodidades",
+    "policies": "Políticas",
+    "rooms": "Opções de quarto",
+    "selectRoom": "Selecionar quarto",
+    "perNight": "por noite",
+    "total": "Total"
+  },
+  "booking": {
+    "title": "Finalizar reserva",
+    "step1": "1. Confirme seus dados",
+    "step2": "2. Escolha o pagamento",
+    "step3": "3. Acompanhamento",
+    "paymentMethod": "Método de pagamento",
+    "stripe": "Cartão (Stripe)",
+    "pix": "PIX instantâneo",
+    "payNow": "Iniciar pagamento",
+    "pending": "Pagamento em processamento",
+    "confirmation": "Reserva confirmada",
+    "code": "Código de confirmação",
+    "status": "Status do pagamento",
+    "stripeNotice": "Stripe iniciado. Aguarde a confirmação do pagamento.",
+    "confirmationHint": "A confirmação será enviada por e-mail após a finalização.",
+    "awaiting": "Aguardando",
+    "guestsLabel": "hóspedes"
+  },
+  "admin": {
+    "loginTitle": "Entrar no Admin",
+    "email": "E-mail",
+    "password": "Senha",
+    "signIn": "Entrar",
+    "signOut": "Sair",
+    "dashboard": "Dashboard",
+    "properties": "Propriedades",
+    "reservations": "Reservas",
+    "ops": "Operações",
+    "health": "Saúde do sistema",
+    "recon": "Reconciliação",
+    "runRecon": "Rodar reconciliação",
+    "emptyProperties": "Sem propriedades",
+    "emptyReservations": "Sem reservas",
+    "opsSummary": "Resumo operacional",
+    "noOpsData": "Sem dados operacionais",
+    "runId": "Run",
+    "cancelReservation": "Cancelar"
+  }
+}
