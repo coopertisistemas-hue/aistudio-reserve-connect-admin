@@ -107,6 +107,35 @@
     "cancelConfirmMessage": "Tem certeza que deseja cancelar esta reserva? Esta ação não pode ser desfeita.",
     "cancelReason": "Motivo do cancelamento",
     "confirm": "Confirmar",
-    "close": "Fechar"
+    "close": "Fechar",
+    "marketing": "Marketing",
+    "siteSettings": "Configurações do Site",
+    "socialLinks": "Redes Sociais",
+    "save": "Salvar",
+    "saving": "Salvando...",
+    "saved": "Salvo com sucesso",
+    "siteName": "Nome do Site",
+    "siteDescription": "Descrição do Site",
+    "contactEmail": "E-mail de Contato",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "metaTitle": "Título SEO",
+    "metaDescription": "Descrição SEO",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "youtube": "YouTube",
+    "whatsapp": "WhatsApp",
+    "accessDenied": "Acesso Negado",
+    "accessDeniedMessage": "Você não tem permissão para acessar esta área.",
+    "nav": {
+      "dashboard": "Dashboard",
+      "properties": "Propriedades",
+      "reservations": "Reservas",
+      "operations": "Operações",
+      "marketing": "Marketing",
+      "siteSettings": "Configurações",
+      "socialLinks": "Redes Sociais"
+    }
   }
 }

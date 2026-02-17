@@ -11,6 +11,8 @@ import DashboardPage from './pages/admin/DashboardPage'
 import PropertiesPage from './pages/admin/PropertiesPage'
 import ReservationsPage from './pages/admin/ReservationsPage'
 import OpsPage from './pages/admin/OpsPage'
+import SiteSettingsPage from './pages/admin/marketing/SiteSettingsPage'
+import SocialLinksPage from './pages/admin/marketing/SocialLinksPage'
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="properties" element={<PropertiesPage />} />
           <Route path="reservations" element={<ReservationsPage />} />
           <Route path="ops" element={<OpsPage />} />
+          <Route path="marketing/site-settings" element={<SiteSettingsPage />} />
+          <Route path="marketing/social-links" element={<SocialLinksPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

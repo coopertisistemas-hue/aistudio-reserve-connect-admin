@@ -107,6 +107,35 @@
     "cancelConfirmMessage": "Are you sure you want to cancel this reservation? This action cannot be undone.",
     "cancelReason": "Cancellation reason",
     "confirm": "Confirm",
-    "close": "Close"
+    "close": "Close",
+    "marketing": "Marketing",
+    "siteSettings": "Site Settings",
+    "socialLinks": "Social Links",
+    "save": "Save",
+    "saving": "Saving...",
+    "saved": "Saved successfully",
+    "siteName": "Site Name",
+    "siteDescription": "Site Description",
+    "contactEmail": "Contact Email",
+    "phone": "Phone",
+    "address": "Address",
+    "metaTitle": "SEO Title",
+    "metaDescription": "SEO Description",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "youtube": "YouTube",
+    "whatsapp": "WhatsApp",
+    "accessDenied": "Access Denied",
+    "accessDeniedMessage": "You do not have permission to access this area.",
+    "nav": {
+      "dashboard": "Dashboard",
+      "properties": "Properties",
+      "reservations": "Reservations",
+      "operations": "Operations",
+      "marketing": "Marketing",
+      "siteSettings": "Settings",
+      "socialLinks": "Social Links"
+    }
   }
 }

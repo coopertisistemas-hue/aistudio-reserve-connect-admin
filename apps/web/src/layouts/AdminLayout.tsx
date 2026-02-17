@@ -1,10 +1,11 @@
-import { NavLink, Outlet, Navigate, Link } from 'react-router-dom'
-import Header from '../components/Header'
+import { Outlet, Navigate, Link } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import LoadingState from '../components/LoadingState'
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect } from 'react'
 import { postJson } from '../lib/apiClient'
+import AdminSidebar from '../components/admin/AdminSidebar'
+import AdminTopbar from '../components/admin/AdminTopbar'
 
 export default function AdminLayout() {
   const { session, loading } = useAuth()
@@ -39,7 +40,6 @@ export default function AdminLayout() {
   if (loading || authLoading) {
     return (
       <div className="app-shell">
-        <Header />
         <div className="container" style={{ padding: '2rem 0' }}>
           <LoadingState />
         </div>
@@ -54,7 +54,6 @@ export default function AdminLayout() {
   if (isAuthorized === false) {
     return (
       <div className="app-shell">
-        <Header />
         <div className="container" style={{ padding: '4rem 0' }}>
           <div className="card" style={{ maxWidth: '480px', margin: '0 auto', textAlign: 'center' }}>
             <h1 className="headline">{t('admin.notAuthorized')}</h1>
@@ -69,18 +68,18 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="app-shell">
-      <Header />
-      <div className="container admin-grid" style={{ paddingBottom: '3rem' }}>
-        <aside className="card" style={{ alignSelf: 'start' }}>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-            <NavLink to="/admin" end>{t('admin.dashboard')}</NavLink>
-            <NavLink to="/admin/properties">{t('admin.properties')}</NavLink>
-            <NavLink to="/admin/reservations">{t('admin.reservations')}</NavLink>
-            <NavLink to="/admin/ops">{t('admin.ops')}</NavLink>
-          </nav>
-        </aside>
-        <main style={{ minHeight: '60vh' }}>
+    <div className="app-shell" style={{ display: 'flex', flexDirection: 'column' }}>
+      <AdminTopbar />
+      <div style={{ display: 'flex', flex: 1 }}>
+        <AdminSidebar />
+        <main
+          style={{
+            flex: 1,
+            padding: '2rem',
+            background: 'var(--sand-100)',
+            minHeight: 'calc(100vh - 64px)'
+          }}
+        >
           <Outlet />
         </main>
       </div>
