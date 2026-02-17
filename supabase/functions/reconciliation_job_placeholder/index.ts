@@ -12,7 +12,7 @@ const supabaseAdmin = createClient(
 )
 
 async function countRows(table: string, filter: (query: any) => any) {
-  const query = filter(supabaseAdmin.from(table).select('id', { count: 'exact', head: true }))
+    const query = filter(supabaseAdmin.schema('reserve').from(table).select('id', { count: 'exact', head: true }))
   const { count } = await query
   return count ?? 0
 }
@@ -64,6 +64,7 @@ serve(async (req) => {
 
     if (!dryRun) {
       const { error } = await supabaseAdmin
+        .schema('reserve')
         .from('reconciliation_runs')
         .insert({
           run_id: runId,
