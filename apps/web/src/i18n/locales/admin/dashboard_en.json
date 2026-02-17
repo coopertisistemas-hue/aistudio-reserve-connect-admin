@@ -1,0 +1,13 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome to the admin panel",
+  "stats": {
+    "reservations": "Reservations",
+    "revenue": "Revenue",
+    "occupancy": "Occupancy",
+    "newGuests": "New Guests"
+  },
+  "recentActivity": "Recent Activity",
+  "quickActions": "Quick Actions",
+  "noData": "No data available"
+}

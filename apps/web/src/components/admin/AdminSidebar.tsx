@@ -13,10 +13,6 @@ function NavItem({ to, icon, label, end = false }: NavItemProps) {
     <NavLink
       to={to}
       end={end}
-      className={({ isActive }) => `
-        sidebar-link
-        ${isActive ? 'sidebar-link-active' : ''}
-      `}
       style={({ isActive }) => ({
         display: 'flex',
         alignItems: 'center',
@@ -38,7 +34,7 @@ function NavItem({ to, icon, label, end = false }: NavItemProps) {
 }
 
 export default function AdminSidebar() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('admin_sidebar')
 
   return (
     <aside
@@ -64,28 +60,28 @@ export default function AdminSidebar() {
             paddingLeft: '1rem'
           }}
         >
-          Main
+          {t('mainMenu')}
         </h3>
         <NavItem
           to="/admin"
           icon="📊"
-          label={t('admin.nav.dashboard')}
+          label={t('dashboard')}
           end
-        />
-        <NavItem
-          to="/admin/properties"
-          icon="🏠"
-          label={t('admin.nav.properties')}
         />
         <NavItem
           to="/admin/reservations"
           icon="📅"
-          label={t('admin.nav.reservations')}
+          label={t('reservations')}
         />
         <NavItem
-          to="/admin/ops"
-          icon="⚙️"
-          label={t('admin.nav.operations')}
+          to="/admin/payments"
+          icon="💳"
+          label={t('payments')}
+        />
+        <NavItem
+          to="/admin/financial"
+          icon="💰"
+          label={t('financial')}
         />
       </div>
 
@@ -100,17 +96,47 @@ export default function AdminSidebar() {
             paddingLeft: '1rem'
           }}
         >
-          {t('admin.marketing')}
+          {t('management')}
         </h3>
         <NavItem
-          to="/admin/marketing/site-settings"
-          icon="⚙️"
-          label={t('admin.nav.siteSettings')}
+          to="/admin/marketing"
+          icon="📢"
+          label={t('marketing')}
         />
         <NavItem
-          to="/admin/marketing/social-links"
-          icon="🔗"
-          label={t('admin.nav.socialLinks')}
+          to="/admin/tasks"
+          icon="✓"
+          label={t('tasks')}
+        />
+        <NavItem
+          to="/admin/reports"
+          icon="📈"
+          label={t('reports')}
+        />
+        <NavItem
+          to="/admin/users"
+          icon="👥"
+          label={t('users')}
+        />
+      </div>
+
+      <div style={{ marginTop: 'auto' }}>
+        <h3
+          style={{
+            fontSize: '0.75rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            color: 'var(--ink-500)',
+            margin: '0 0 0.75rem 0',
+            paddingLeft: '1rem'
+          }}
+        >
+          {t('support')}
+        </h3>
+        <NavItem
+          to="/admin/settings"
+          icon="⚙️"
+          label={t('settings')}
         />
       </div>
     </aside>

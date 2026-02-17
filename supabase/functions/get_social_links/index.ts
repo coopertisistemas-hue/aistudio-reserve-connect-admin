@@ -15,26 +15,23 @@ serve(async (req) => {
     // Validate admin authentication
     await requireAdmin(req, supabaseAdmin)
     
-    // Get social links from database
+    // Get tenant_id from request or use default
+    const body = await req.json().catch(() => ({}))
+    const tenantId = body.tenant_id || '00000000-0000-0000-0000-000000000000'
+    
+    // Get social links for tenant
     const { data, error } = await supabaseAdmin
       .from('social_links')
       .select('*')
-      .single()
+      .eq('tenant_id', tenantId)
+      .order('platform')
     
-    if (error && error.code !== 'PGRST116') { // PGRST116 = no rows
+    if (error) {
       throw error
     }
 
-    // Return default links if none found
-    const links = data || {
-      facebook: '',
-      instagram: '',
-      twitter: '',
-      youtube: '',
-      whatsapp: ''
-    }
-
-    return createSuccessResponse(links)
+    // Return empty array if none found
+    return createSuccessResponse(data || [])
   } catch (error) {
     console.error('get_social_links error:', error.message)
     return createErrorResponse('SOCIAL_LINKS_001', error.message, 401)

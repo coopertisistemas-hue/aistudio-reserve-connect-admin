@@ -4,10 +4,11 @@ import LanguageSwitcher from '../LanguageSwitcher'
 
 interface AdminTopbarProps {
   title?: string
+  tenantName?: string
 }
 
-export default function AdminTopbar({ title }: AdminTopbarProps) {
-  const { t } = useTranslation()
+export default function AdminTopbar({ title, tenantName = 'Urubici' }: AdminTopbarProps) {
+  const { t } = useTranslation('admin_sidebar')
   const { signOut } = useAuth()
 
   return (
@@ -38,6 +39,22 @@ export default function AdminTopbar({ title }: AdminTopbarProps) {
             {title}
           </h1>
         )}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.25rem 0.75rem',
+            background: 'var(--sage-100)',
+            borderRadius: '999px',
+            fontSize: '0.875rem',
+            color: 'var(--sage-500)',
+            fontWeight: 500
+          }}
+        >
+          <span>🏙️</span>
+          <span>{tenantName}</span>
+        </div>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -51,7 +68,7 @@ export default function AdminTopbar({ title }: AdminTopbarProps) {
             padding: '0.5rem 1rem'
           }}
         >
-          {t('admin.signOut')}
+          {t('logout')}
         </button>
       </div>
     </header>
