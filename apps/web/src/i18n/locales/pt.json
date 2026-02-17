@@ -84,6 +84,29 @@
     "opsSummary": "Resumo operacional",
     "noOpsData": "Sem dados operacionais",
     "runId": "Run",
-    "cancelReservation": "Cancelar"
+    "cancelReservation": "Cancelar",
+    "notAuthorized": "Acesso não autorizado",
+    "notAuthorizedMessage": "Você não tem permissão para acessar o painel administrativo.",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "status": "Status",
+    "all": "Todos",
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "draft": "Rascunho",
+    "confirmed": "Confirmada",
+    "cancelled": "Cancelada",
+    "pending": "Pendente",
+    "kpi": {
+      "stuckPayments": "Pagamentos travados",
+      "failedWebhooks": "Webhooks falhos",
+      "ledgerImbalances": "Desbalanceamentos",
+      "lastRecon": "Última reconciliação"
+    },
+    "cancelConfirmTitle": "Cancelar reserva",
+    "cancelConfirmMessage": "Tem certeza que deseja cancelar esta reserva? Esta ação não pode ser desfeita.",
+    "cancelReason": "Motivo do cancelamento",
+    "confirm": "Confirmar",
+    "close": "Fechar"
   }
 }

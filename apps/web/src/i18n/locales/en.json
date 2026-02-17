@@ -84,6 +84,29 @@
     "opsSummary": "Operational summary",
     "noOpsData": "No operational data",
     "runId": "Run",
-    "cancelReservation": "Cancel"
+    "cancelReservation": "Cancel",
+    "notAuthorized": "Not authorized",
+    "notAuthorizedMessage": "You do not have permission to access the admin panel.",
+    "search": "Search",
+    "filter": "Filter",
+    "status": "Status",
+    "all": "All",
+    "active": "Active",
+    "inactive": "Inactive",
+    "draft": "Draft",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "pending": "Pending",
+    "kpi": {
+      "stuckPayments": "Stuck payments",
+      "failedWebhooks": "Failed webhooks",
+      "ledgerImbalances": "Ledger imbalances",
+      "lastRecon": "Last reconciliation"
+    },
+    "cancelConfirmTitle": "Cancel reservation",
+    "cancelConfirmMessage": "Are you sure you want to cancel this reservation? This action cannot be undone.",
+    "cancelReason": "Cancellation reason",
+    "confirm": "Confirm",
+    "close": "Close"
   }
 }
