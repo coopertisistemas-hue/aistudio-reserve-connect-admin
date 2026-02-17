@@ -11,10 +11,12 @@ const supabaseAdmin = createClient(
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
 )
 
-async function countRows(table: string, filter: (query: any) => any) {
-    const query = filter(supabaseAdmin.schema('reserve').from(table).select('id', { count: 'exact', head: true }))
-  const { count } = await query
-  return count ?? 0
+async function fetchSummary() {
+  const { data, error } = await supabaseAdmin.rpc('reconciliation_summary')
+  if (error) {
+    throw new Error(`Failed to fetch summary: ${error.message}`)
+  }
+  return data as Record<string, unknown>
 }
 
 serve(async (req) => {
@@ -34,45 +36,16 @@ serve(async (req) => {
     const runId = body?.run_id || `recon_${crypto.randomUUID()}`
     const dryRun = body?.dry_run === true
 
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
-    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000).toISOString()
-    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString()
-
-    const stuckPayments = await countRows('payments', (query) =>
-      query.in('status', ['pending', 'processing']).lt('created_at', oneHourAgo)
-    )
-
-    const missingFinalization = await countRows('booking_intents', (query) =>
-      query.eq('status', 'payment_confirmed').is('converted_to_reservation_id', null).lt('created_at', tenMinutesAgo)
-    )
-
-    const pendingWebhooks = await countRows('host_webhook_events', (query) =>
-      query.in('status', ['pending', 'failed']).lt('created_at', fifteenMinutesAgo)
-    )
-
-    const pendingCancellations = await countRows('cancellation_requests', (query) =>
-      query.eq('status', 'processing').lt('created_at', fifteenMinutesAgo)
-    )
-
-    const summary = {
-      stuck_payments: stuckPayments,
-      missing_finalization: missingFinalization,
-      pending_webhooks: pendingWebhooks,
-      pending_cancellations: pendingCancellations,
-      generated_at: new Date().toISOString()
-    }
+    const summary = await fetchSummary()
 
     if (!dryRun) {
-      const { error } = await supabaseAdmin
-        .schema('reserve')
-        .from('reconciliation_runs')
-        .insert({
-          run_id: runId,
-          status: 'completed',
-          summary,
-          started_at: new Date().toISOString(),
-          completed_at: new Date().toISOString()
-        })
+      const { error } = await supabaseAdmin.rpc('log_reconciliation_run', {
+        p_run_id: runId,
+        p_status: 'completed',
+        p_summary: summary,
+        p_started_at: new Date().toISOString(),
+        p_completed_at: new Date().toISOString()
+      })
 
       if (error) {
         throw new Error(`Failed to log reconciliation run: ${error.message}`)
