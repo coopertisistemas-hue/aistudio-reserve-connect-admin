@@ -60,8 +60,8 @@ Project: Reserve Connect (URB first, multi-city ready)
 
 ## Final Closeout Actions (Before Declaring Sprint 2 Done)
 
-- [ ] Remove stray root file `nul`
-- [ ] Push commit `b1363cb` to remote branch
+- [x] Remove stray root file `nul`
+- [x] Push commit `b1363cb` (plus closeout docs) to remote branch
 - [ ] Open PR with Sprint 2 summary and QA evidence links/screenshots
 - [ ] Product signoff for financial UX flows in admin
 
