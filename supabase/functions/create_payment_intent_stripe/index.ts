@@ -4,7 +4,7 @@ import Stripe from 'https://esm.sh/stripe@12.0.0?target=deno'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-idempotency-key',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-idempotency-key, x-session-id',
 }
 
 // Rate limiting configuration

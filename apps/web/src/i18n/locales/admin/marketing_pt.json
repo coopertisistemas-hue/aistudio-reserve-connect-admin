@@ -1,0 +1,37 @@
+{
+  "title": "Marketing",
+  "siteSettings": {
+    "title": "Configurações do Site",
+    "generalInfo": "Informações Gerais",
+    "siteName": "Nome do Site",
+    "primaryCtaLabel": "Texto do Botão Principal",
+    "primaryCtaLink": "Link do Botão Principal",
+    "contactEmail": "Email de Contato",
+    "contactPhone": "Telefone de Contato",
+    "whatsapp": "WhatsApp",
+    "seo": "SEO",
+    "socialMedia": "Redes Sociais",
+    "branding": "Identidade Visual",
+    "logoUrl": "URL do Logo",
+    "faviconUrl": "URL do Favicon",
+    "updatedAt": "Última Atualização",
+    "saveSuccess": "Configurações salvas com sucesso",
+    "saveError": "Erro ao salvar configurações",
+    "loadError": "Erro ao carregar configurações"
+  },
+  "socialLinks": {
+    "title": "Redes Sociais",
+    "platform": "Plataforma",
+    "url": "URL",
+    "active": "Ativo",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "tiktok": "TikTok",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "addPlatform": "Adicionar Plataforma",
+    "noPlatforms": "Nenhuma plataforma configurada",
+    "saveSuccess": "Redes sociais atualizadas",
+    "saveError": "Erro ao atualizar redes sociais"
+  }
+}

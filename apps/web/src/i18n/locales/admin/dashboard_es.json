@@ -1,0 +1,13 @@
+{
+  "title": "Dashboard",
+  "welcome": "Bienvenido al panel de administración",
+  "stats": {
+    "reservations": "Reservas",
+    "revenue": "Ingresos",
+    "occupancy": "Ocupación",
+    "newGuests": "Nuevos Huéspedes"
+  },
+  "recentActivity": "Actividad Reciente",
+  "quickActions": "Acciones Rápidas",
+  "noData": "No hay datos disponibles"
+}

@@ -1,9 +1,14 @@
 import { getAccessToken } from './auth'
 
 const baseUrl = import.meta.env.VITE_FUNCTIONS_BASE_URL
+const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!baseUrl) {
   console.warn('VITE_FUNCTIONS_BASE_URL is not set')
+}
+
+if (!anonKey) {
+  console.warn('VITE_SUPABASE_ANON_KEY is not set')
 }
 
 type ApiOptions = {
@@ -21,6 +26,10 @@ export async function postJson<T>(path: string, body: unknown, options: ApiOptio
       'Content-Type': 'application/json',
     }
 
+    if (anonKey) {
+      headers.apikey = anonKey
+    }
+
     if (options.idempotencyKey) {
       headers['x-idempotency-key'] = options.idempotencyKey
     }
@@ -34,6 +43,8 @@ export async function postJson<T>(path: string, body: unknown, options: ApiOptio
       if (token) {
         headers.Authorization = `Bearer ${token}`
       }
+    } else if (anonKey) {
+      headers.Authorization = `Bearer ${anonKey}`
     }
 
     const response = await fetch(`${baseUrl}/${path}`, {

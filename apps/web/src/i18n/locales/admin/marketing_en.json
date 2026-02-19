@@ -1,0 +1,37 @@
+{
+  "title": "Marketing",
+  "siteSettings": {
+    "title": "Site Settings",
+    "generalInfo": "General Information",
+    "siteName": "Site Name",
+    "primaryCtaLabel": "Primary CTA Label",
+    "primaryCtaLink": "Primary CTA Link",
+    "contactEmail": "Contact Email",
+    "contactPhone": "Contact Phone",
+    "whatsapp": "WhatsApp",
+    "seo": "SEO",
+    "socialMedia": "Social Media",
+    "branding": "Branding",
+    "logoUrl": "Logo URL",
+    "faviconUrl": "Favicon URL",
+    "updatedAt": "Last Updated",
+    "saveSuccess": "Settings saved successfully",
+    "saveError": "Error saving settings",
+    "loadError": "Error loading settings"
+  },
+  "socialLinks": {
+    "title": "Social Links",
+    "platform": "Platform",
+    "url": "URL",
+    "active": "Active",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "tiktok": "TikTok",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "addPlatform": "Add Platform",
+    "noPlatforms": "No platforms configured",
+    "saveSuccess": "Social links updated",
+    "saveError": "Error updating social links"
+  }
+}

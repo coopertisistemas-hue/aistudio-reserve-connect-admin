@@ -1,0 +1,21 @@
+{
+  "title": "Painel Administrativo",
+  "dashboard": "Dashboard",
+  "reservations": "Reservas",
+  "payments": "Pagamentos",
+  "financial": "Financeiro",
+  "payouts": "Repasses",
+  "marketing": "Marketing",
+  "tasks": "Tarefas",
+  "reports": "Relatórios",
+  "users": "Usuários",
+  "settings": "Configurações",
+  "siteSettings": "Configurações do Site",
+  "socialLinks": "Redes Sociais",
+  "logout": "Sair",
+  "welcome": "Bem-vindo",
+  "tenant": "Cidade",
+  "mainMenu": "Menu Principal",
+  "management": "Gerenciamento",
+  "support": "Suporte"
+}

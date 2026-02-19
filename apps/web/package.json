@@ -12,9 +12,9 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.49.0",
     "i18next": "^25.4.1",
-    "react-i18next": "^15.7.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-i18next": "^15.7.2",
     "react-router-dom": "^6.30.1"
   },
   "devDependencies": {
@@ -23,6 +23,8 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "browserslist": "^4.24.4",
+    "caniuse-lite": "^1.0.30001770",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
@@ -30,5 +32,10 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
     "vite": "^7.3.1"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }

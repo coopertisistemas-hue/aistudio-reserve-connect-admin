@@ -1,3 +1,4 @@
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { requireAdmin, corsHeaders, createErrorResponse, createSuccessResponse } from '../_shared/auth.ts'
 
@@ -16,16 +17,14 @@ serve(async (req) => {
     await requireAdmin(req, supabaseAdmin)
 
     const { data: health, error: healthError } = await supabaseAdmin
-      .rpc('system_health_check')
+      .rpc('admin_ops_health_checks')
 
     if (healthError) {
       throw healthError
     }
 
     const { data: summary, error: summaryError } = await supabaseAdmin
-      .from('ops_dashboard_summary')
-      .select('*')
-      .single()
+      .rpc('admin_ops_snapshot')
 
     if (summaryError) {
       throw summaryError
@@ -33,11 +32,7 @@ serve(async (req) => {
 
     return createSuccessResponse({
       health: health || [],
-      snapshot: {
-        ledger_imbalances: summary.ledger_imbalances,
-        stuck_payments: summary.stuck_payments,
-        failed_webhooks: summary.failed_payment_webhooks + summary.failed_host_webhooks
-      }
+      snapshot: summary
     })
   } catch (error) {
     console.error('admin_ops_summary error:', error.message)

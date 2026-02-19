@@ -1,0 +1,21 @@
+{
+  "title": "Admin Panel",
+  "dashboard": "Dashboard",
+  "reservations": "Reservations",
+  "payments": "Payments",
+  "financial": "Financial",
+  "payouts": "Payouts",
+  "marketing": "Marketing",
+  "tasks": "Tasks",
+  "reports": "Reports",
+  "users": "Users",
+  "settings": "Settings",
+  "siteSettings": "Site Settings",
+  "socialLinks": "Social Links",
+  "logout": "Logout",
+  "welcome": "Welcome",
+  "tenant": "City",
+  "mainMenu": "Main Menu",
+  "management": "Management",
+  "support": "Support"
+}
