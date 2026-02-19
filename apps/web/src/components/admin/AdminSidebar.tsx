@@ -83,6 +83,11 @@ export default function AdminSidebar() {
           icon="💰"
           label={t('financial')}
         />
+        <NavItem
+          to="/admin/payouts"
+          icon="🏦"
+          label={t('payouts')}
+        />
       </div>
 
       <div style={{ marginBottom: '1rem' }}>
