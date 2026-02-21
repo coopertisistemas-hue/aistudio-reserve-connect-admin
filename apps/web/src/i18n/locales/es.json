@@ -14,7 +14,8 @@
     "loading": "Cargando...",
     "error": "Algo salió mal",
     "empty": "Sin resultados",
-    "language": "Idioma"
+    "language": "Idioma",
+    "close": "Cerrar"
   },
   "landing": {
     "heroTitle": "Urubici con confort y reserva segura",
@@ -50,21 +51,57 @@
   },
   "booking": {
     "title": "Finalizar reserva",
-    "step1": "1. Confirma datos",
-    "step2": "2. Elige pago",
+    "step1": "1. Confirma tus datos",
+    "step2": "2. Elige el pago",
     "step3": "3. Seguimiento",
     "paymentMethod": "Método de pago",
     "stripe": "Tarjeta (Stripe)",
     "pix": "PIX instantáneo",
-    "payNow": "Iniciar pago",
+    "payNow": "Pagar ahora",
     "pending": "Pago en procesamiento",
     "confirmation": "Reserva confirmada",
     "code": "Código de confirmación",
     "status": "Estado del pago",
-    "stripeNotice": "Stripe iniciado. Espera la confirmación.",
-    "confirmationHint": "La confirmación se enviará por correo al finalizar.",
+    "stripeNotice": "Pago iniciado. Espera la confirmación.",
+    "confirmationHint": "La confirmación se enviará por correo.",
     "awaiting": "En espera",
-    "guestsLabel": "huéspedes"
+    "guestsLabel": "huéspedes",
+    "softHoldTimer": "La reserva temporal expira en:",
+    "expired": "Esta reserva temporal ha expirado. Por favor, inicia una nueva búsqueda.",
+    "guestForm": {
+      "fullName": "Nombre completo",
+      "fullNamePlaceholder": "Ingresa tu nombre completo",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "+52 55 1234 5678",
+      "document": "Documento de identidad",
+      "documentPlaceholder": "Ingresa tu número de documento",
+      "specialRequests": "Solicitudes especiales",
+      "specialRequestsPlaceholder": "¿Alguna solicitud especial para tu estadía?"
+    },
+    "errors": {
+      "fullNameRequired": "El nombre completo es obligatorio (mínimo 3 caracteres)",
+      "emailInvalid": "Correo electrónico inválido",
+      "phoneInvalid": "Teléfono inválido (mínimo 10 dígitos)",
+      "documentInvalid": "Documento inválido",
+      "termsRequired": "Debes aceptar los términos y condiciones"
+    },
+    "terms": {
+      "accept": "He leído y acepto los",
+      "link": "términos y condiciones",
+      "title": "Términos y Condiciones",
+      "content": "Al realizar esta reserva, aceptas nuestras políticas de cancelación, reembolso y uso de la propiedad. El pago se procesará de forma segura. Los datos personales se tratarán según nuestra política de privacidad.",
+      "acceptButton": "Aceptar y continuar"
+    },
+    "pricing": {
+      "title": "Resumen de la reserva",
+      "cleaningFee": "Tarifa de limpieza",
+      "serviceFee": "Tarifa de servicio",
+      "subtotal": "Subtotal",
+      "iof": "Impuesto sobre operaciones financieras (IOF)",
+      "total": "Total"
+    }
   },
   "admin": {
     "loginTitle": "Acceso admin",
@@ -195,6 +232,106 @@
     "whatsapp": "WhatsApp",
     "accessDenied": "Acceso Denegado",
     "accessDeniedMessage": "No tienes permiso para acceder a esta área.",
+    "s1": {
+      "common": {
+        "refresh": "Actualizar",
+        "filterByProperty": "Filtrar por propiedad",
+        "select": "Selecciona",
+        "name": "Nombre",
+        "clear": "Limpiar",
+        "create": "Crear",
+        "update": "Actualizar"
+      },
+      "units": {
+        "title": "Unidades",
+        "newTitle": "Nueva unidad",
+        "editTitle": "Editar unidad",
+        "type": "Tipo",
+        "maxOccupancy": "Capacidad maxima",
+        "baseCapacity": "Capacidad base",
+        "maxShort": "max",
+        "empty": "Sin unidades",
+        "errors": {
+          "load": "Error al cargar unidades",
+          "save": "Error al guardar unidad"
+        }
+      },
+      "ratePlans": {
+        "title": "Rate Plans",
+        "newTitle": "Nuevo rate plan",
+        "editTitle": "Editar rate plan",
+        "code": "Codigo",
+        "minStayNights": "Min stay (noches)",
+        "maxStayNights": "Max stay (noches)",
+        "advanceBookingDays": "Advance booking (dias)",
+        "minShort": "min",
+        "maxShort": "max",
+        "default": "default",
+        "empty": "Sin rate plans",
+        "errors": {
+          "load": "Error al cargar rate plans",
+          "save": "Error al guardar rate plan"
+        }
+      },
+      "availability": {
+        "title": "Disponibilidad",
+        "startDate": "Fecha inicial",
+        "endDate": "Fecha final",
+        "editSlot": "Editar slot",
+        "basePrice": "Precio base",
+        "discountedPrice": "Precio con descuento",
+        "minStayOverride": "Min stay override",
+        "available": "Disponible",
+        "unavailable": "No disponible",
+        "blocked": "Bloqueado",
+        "blockReason": "Motivo de bloqueo",
+        "holds": "holds",
+        "baseShort": "base",
+        "empty": "Sin slots en el periodo",
+        "errors": {
+          "load": "Error al cargar disponibilidad",
+          "save": "Error al guardar disponibilidad"
+        }
+      },
+      "holds": {
+        "title": "Booking Holds",
+        "active": "Activos",
+        "nights": "noches",
+        "guests": "huespedes",
+        "city": "ciudad",
+        "expiresIn": "expira en",
+        "empty": "Sin booking holds",
+        "errors": {
+          "load": "Error al cargar holds"
+        }
+      }
+    },
+    "s2": {
+      "common": {
+        "new": "Nuevo registro",
+        "edit": "Editar registro"
+      },
+      "commission": {
+        "title": "Comisiones",
+        "rate": "Tasa de comision",
+        "minProperties": "Min propiedades",
+        "maxProperties": "Max propiedades",
+        "effectiveFrom": "Vigente desde",
+        "empty": "Sin tiers de comision",
+        "errors": {
+          "load": "Error al cargar tiers de comision",
+          "save": "Error al guardar tier de comision"
+        }
+      },
+      "schedules": {
+        "title": "Reglas de Pago",
+        "empty": "Sin reglas de pago",
+        "errors": {
+          "load": "Error al cargar reglas de pago",
+          "save": "Error al guardar regla de pago"
+        }
+      }
+    },
     "nav": {
       "dashboard": "Dashboard",
       "properties": "Propiedades",

@@ -4,12 +4,21 @@ import type { Session } from '@supabase/supabase-js'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const hasSupabaseEnv = Boolean(supabaseUrl && supabaseAnonKey)
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Supabase environment variables are missing')
+if (!hasSupabaseEnv) {
+  console.warn(
+    'Supabase environment variables are missing. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in apps/web/.env and restart the dev server.'
+  )
 }
 
-export const supabase = createClient(supabaseUrl ?? '', supabaseAnonKey ?? '')
+const fallbackSupabaseUrl = 'https://example.supabase.co'
+const fallbackSupabaseAnonKey = 'public-anon-key-placeholder'
+
+export const supabase = createClient(
+  hasSupabaseEnv ? supabaseUrl : fallbackSupabaseUrl,
+  hasSupabaseEnv ? supabaseAnonKey : fallbackSupabaseAnonKey
+)
 
 type AuthContextValue = {
   session: Session | null
@@ -25,9 +34,14 @@ const AuthContext = createContext<AuthContextValue>({
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(hasSupabaseEnv)
 
   useEffect(() => {
+    if (!hasSupabaseEnv) {
+      setLoading(false)
+      return
+    }
+
     let mounted = true
     supabase.auth.getSession().then(({ data }) => {
       if (mounted) {
@@ -52,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       session,
       loading,
       signOut: async () => {
+        if (!hasSupabaseEnv) return
         await supabase.auth.signOut()
       },
     }),
@@ -66,6 +81,7 @@ export function useAuth() {
 }
 
 export async function getAccessToken() {
+  if (!hasSupabaseEnv) return undefined
   const { data } = await supabase.auth.getSession()
   return data.session?.access_token
 }

@@ -68,20 +68,19 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="app-shell" style={{ display: 'flex', flexDirection: 'column' }}>
-      <AdminTopbar />
-      <div style={{ display: 'flex', flex: 1 }}>
-        <AdminSidebar />
-        <main
-          style={{
-            flex: 1,
-            padding: '2rem',
-            background: 'var(--sand-100)',
-            minHeight: 'calc(100vh - 64px)'
-          }}
-        >
+    <div className="app-shell admin-shell">
+      <AdminSidebar />
+      <div className="admin-main">
+        <AdminTopbar />
+        <main className="admin-content">
           <Outlet />
         </main>
+        <footer className="admin-footer">
+          <span>© 2026 ADS CONNECT</span>
+          <span>DESENVOLVIDO POR URUBICI CONNECT</span>
+          <span>v0.9.0</span>
+          <span>AMBIENTE LIVE</span>
+        </footer>
       </div>
     </div>
   )
