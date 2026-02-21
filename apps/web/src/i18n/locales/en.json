@@ -14,7 +14,8 @@
     "loading": "Loading...",
     "error": "Something went wrong",
     "empty": "No results found",
-    "language": "Language"
+    "language": "Language",
+    "close": "Close"
   },
   "landing": {
     "heroTitle": "Urubici stays with comfort and secure booking",
@@ -50,21 +51,57 @@
   },
   "booking": {
     "title": "Complete booking",
-    "step1": "1. Confirm details",
+    "step1": "1. Confirm your details",
     "step2": "2. Choose payment",
     "step3": "3. Tracking",
     "paymentMethod": "Payment method",
     "stripe": "Card (Stripe)",
     "pix": "PIX instant",
-    "payNow": "Start payment",
+    "payNow": "Pay now",
     "pending": "Payment processing",
     "confirmation": "Booking confirmed",
     "code": "Confirmation code",
     "status": "Payment status",
-    "stripeNotice": "Stripe initiated. Await payment confirmation.",
-    "confirmationHint": "Confirmation will be sent by email once finalized.",
+    "stripeNotice": "Payment initiated. Await confirmation.",
+    "confirmationHint": "Confirmation will be sent by email.",
     "awaiting": "Awaiting",
-    "guestsLabel": "guests"
+    "guestsLabel": "guests",
+    "softHoldTimer": "Temporary reservation expires in:",
+    "expired": "This temporary reservation has expired. Please start a new search.",
+    "guestForm": {
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "document": "Document ID",
+      "documentPlaceholder": "Enter your document number",
+      "specialRequests": "Special requests",
+      "specialRequestsPlaceholder": "Any special requests for your stay?"
+    },
+    "errors": {
+      "fullNameRequired": "Full name is required (minimum 3 characters)",
+      "emailInvalid": "Invalid email",
+      "phoneInvalid": "Invalid phone (minimum 10 digits)",
+      "documentInvalid": "Invalid document",
+      "termsRequired": "You must accept the terms and conditions"
+    },
+    "terms": {
+      "accept": "I have read and accept the",
+      "link": "terms and conditions",
+      "title": "Terms and Conditions",
+      "content": "By making this booking, you agree to our cancellation, refund, and property use policies. Payment will be processed securely. Personal data will be handled according to our privacy policy.",
+      "acceptButton": "Accept and continue"
+    },
+    "pricing": {
+      "title": "Booking summary",
+      "cleaningFee": "Cleaning fee",
+      "serviceFee": "Service fee",
+      "subtotal": "Subtotal",
+      "iof": "Financial tax (IOF)",
+      "total": "Total"
+    }
   },
   "admin": {
     "loginTitle": "Admin sign in",
@@ -195,6 +232,80 @@
     "whatsapp": "WhatsApp",
     "accessDenied": "Access Denied",
     "accessDeniedMessage": "You do not have permission to access this area.",
+    "s1": {
+      "common": {
+        "refresh": "Refresh",
+        "filterByProperty": "Filter by property",
+        "select": "Select",
+        "name": "Name",
+        "clear": "Clear",
+        "create": "Create",
+        "update": "Update"
+      },
+      "units": {
+        "title": "Units",
+        "newTitle": "New unit",
+        "editTitle": "Edit unit",
+        "type": "Type",
+        "maxOccupancy": "Max occupancy",
+        "baseCapacity": "Base capacity",
+        "maxShort": "max",
+        "empty": "No units",
+        "errors": {
+          "load": "Failed to load units",
+          "save": "Failed to save unit"
+        }
+      },
+      "ratePlans": {
+        "title": "Rate Plans",
+        "newTitle": "New rate plan",
+        "editTitle": "Edit rate plan",
+        "code": "Code",
+        "minStayNights": "Min stay (nights)",
+        "maxStayNights": "Max stay (nights)",
+        "advanceBookingDays": "Advance booking (days)",
+        "minShort": "min",
+        "maxShort": "max",
+        "default": "default",
+        "empty": "No rate plans",
+        "errors": {
+          "load": "Failed to load rate plans",
+          "save": "Failed to save rate plan"
+        }
+      },
+      "availability": {
+        "title": "Availability",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "editSlot": "Edit slot",
+        "basePrice": "Base price",
+        "discountedPrice": "Discounted price",
+        "minStayOverride": "Min stay override",
+        "available": "Available",
+        "unavailable": "Unavailable",
+        "blocked": "Blocked",
+        "blockReason": "Block reason",
+        "holds": "holds",
+        "baseShort": "base",
+        "empty": "No slots in range",
+        "errors": {
+          "load": "Failed to load availability",
+          "save": "Failed to save availability"
+        }
+      },
+      "holds": {
+        "title": "Booking Holds",
+        "active": "Active",
+        "nights": "nights",
+        "guests": "guests",
+        "city": "city",
+        "expiresIn": "expires in",
+        "empty": "No booking holds",
+        "errors": {
+          "load": "Failed to load booking holds"
+        }
+      }
+    },
     "nav": {
       "dashboard": "Dashboard",
       "properties": "Properties",

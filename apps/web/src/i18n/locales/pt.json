@@ -14,7 +14,8 @@
     "loading": "Carregando...",
     "error": "Algo deu errado",
     "empty": "Nenhum resultado encontrado",
-    "language": "Idioma"
+      "language": "Idioma",
+      "close": "Fechar"
   },
   "landing": {
     "heroTitle": "Urubici com conforto e reserva segura",
@@ -56,15 +57,51 @@
     "paymentMethod": "Método de pagamento",
     "stripe": "Cartão (Stripe)",
     "pix": "PIX instantâneo",
-    "payNow": "Iniciar pagamento",
+    "payNow": "Pagar agora",
     "pending": "Pagamento em processamento",
     "confirmation": "Reserva confirmada",
     "code": "Código de confirmação",
     "status": "Status do pagamento",
-    "stripeNotice": "Stripe iniciado. Aguarde a confirmação do pagamento.",
-    "confirmationHint": "A confirmação será enviada por e-mail após a finalização.",
+    "stripeNotice": "Pagamento iniciado. Aguarde a confirmação.",
+    "confirmationHint": "A confirmação será enviada por e-mail.",
     "awaiting": "Aguardando",
-    "guestsLabel": "hóspedes"
+    "guestsLabel": "hóspedes",
+    "softHoldTimer": "Reserva temporária expira em:",
+    "expired": "Esta reserva temporária expirou. Por favor, inicie uma nova busca.",
+    "guestForm": {
+      "fullName": "Nome completo",
+      "fullNamePlaceholder": "Digite seu nome completo",
+      "email": "E-mail",
+      "emailPlaceholder": "seu@email.com",
+      "phone": "Telefone",
+      "phonePlaceholder": "(11) 99999-9999",
+      "document": "CPF",
+      "documentPlaceholder": "000.000.000-00",
+      "specialRequests": "Solicitações especiais",
+      "specialRequestsPlaceholder": "Alguma solicitação especial para sua estadia?"
+    },
+    "errors": {
+      "fullNameRequired": "Nome completo é obrigatório (mínimo 3 caracteres)",
+      "emailInvalid": "E-mail inválido",
+      "phoneInvalid": "Telefone inválido (mínimo 10 dígitos)",
+      "documentInvalid": "CPF inválido (11 dígitos)",
+      "termsRequired": "Você deve aceitar os termos e condições"
+    },
+    "terms": {
+      "accept": "Li e aceito os",
+      "link": "termos e condições",
+      "title": "Termos e Condições",
+      "content": "Ao realizar esta reserva, você concorda com nossas políticas de cancelamento, reembolso e uso da propriedade. O pagamento será processado de forma segura. Dados pessoais serão tratados conforme nossa política de privacidade.",
+      "acceptButton": "Aceitar e continuar"
+    },
+    "pricing": {
+      "title": "Resumo da reserva",
+      "cleaningFee": "Taxa de limpeza",
+      "serviceFee": "Taxa de serviço",
+      "subtotal": "Subtotal",
+      "iof": "IOF (imposto sobre operações financeiras)",
+      "total": "Total"
+    }
   },
   "admin": {
     "loginTitle": "Entrar no Admin",
@@ -195,6 +232,80 @@
     "whatsapp": "WhatsApp",
     "accessDenied": "Acesso Negado",
     "accessDeniedMessage": "Você não tem permissão para acessar esta área.",
+    "s1": {
+      "common": {
+        "refresh": "Atualizar",
+        "filterByProperty": "Filtrar por propriedade",
+        "select": "Selecione",
+        "name": "Nome",
+        "clear": "Limpar",
+        "create": "Criar",
+        "update": "Atualizar"
+      },
+      "units": {
+        "title": "Unidades",
+        "newTitle": "Nova unidade",
+        "editTitle": "Editar unidade",
+        "type": "Tipo",
+        "maxOccupancy": "Capacidade maxima",
+        "baseCapacity": "Capacidade base",
+        "maxShort": "max",
+        "empty": "Sem unidades",
+        "errors": {
+          "load": "Falha ao carregar unidades",
+          "save": "Falha ao salvar unidade"
+        }
+      },
+      "ratePlans": {
+        "title": "Rate Plans",
+        "newTitle": "Novo rate plan",
+        "editTitle": "Editar rate plan",
+        "code": "Codigo",
+        "minStayNights": "Min stay (noites)",
+        "maxStayNights": "Max stay (noites)",
+        "advanceBookingDays": "Advance booking (dias)",
+        "minShort": "min",
+        "maxShort": "max",
+        "default": "default",
+        "empty": "Sem rate plans",
+        "errors": {
+          "load": "Falha ao carregar rate plans",
+          "save": "Falha ao salvar rate plan"
+        }
+      },
+      "availability": {
+        "title": "Disponibilidade",
+        "startDate": "Data inicial",
+        "endDate": "Data final",
+        "editSlot": "Editar slot",
+        "basePrice": "Preco base",
+        "discountedPrice": "Preco com desconto",
+        "minStayOverride": "Min stay override",
+        "available": "Disponivel",
+        "unavailable": "Indisponivel",
+        "blocked": "Bloqueado",
+        "blockReason": "Motivo do bloqueio",
+        "holds": "holds",
+        "baseShort": "base",
+        "empty": "Sem slots no periodo",
+        "errors": {
+          "load": "Falha ao carregar disponibilidade",
+          "save": "Falha ao salvar disponibilidade"
+        }
+      },
+      "holds": {
+        "title": "Booking Holds",
+        "active": "Ativos",
+        "nights": "nights",
+        "guests": "guests",
+        "city": "city",
+        "expiresIn": "expira em",
+        "empty": "Sem booking holds",
+        "errors": {
+          "load": "Falha ao carregar holds"
+        }
+      }
+    },
     "nav": {
       "dashboard": "Dashboard",
       "properties": "Propriedades",
