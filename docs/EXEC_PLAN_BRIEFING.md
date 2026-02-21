@@ -13,6 +13,7 @@ Modernize Reserve Connect Admin using sprint-based execution with mandatory QA g
 - SP3 complete: active exception lifecycle workflow (ack/in_progress/resolved/snooze, ownership).
 - SP4 complete: RBAC governance modules (users, permissions, audit, integrations).
 - SP5 complete: marketing governance (SEO overrides and branding assets).
+- SP6 complete: stabilization matrix and release-readiness gate.
 
 ## Deployment and QA Status
 
@@ -25,6 +26,7 @@ Modernize Reserve Connect Admin using sprint-based execution with mandatory QA g
   - `sprint3_ops_lifecycle_smoke.mjs`: PASS
 - `sprint4_rbac_governance_smoke.mjs`: PASS
 - `sprint5_marketing_governance_smoke.mjs`: PASS
+- `sprint6_stabilization_matrix.mjs`: PASS
 
 ## Canonical Artifacts
 

@@ -4,15 +4,15 @@ Last update: 2026-02-21
 
 ## Current State
 
-- SP1-SP5 implemented and deployed in integrated environment.
+- SP1-SP6 implemented and deployed in integrated environment.
 - QA evidence exists per sprint draft under `docs/verification/` with `QA Approved` gates.
 - Latest governance release commit: `9796699`.
 
 ## Immediate Next Steps
 
-1. Start SP6 implementation (stabilization and production quality gates).
-2. Build consolidated smoke matrix for SP1-SP5 + booking regression.
-3. Close lint debt strategy and launch-readiness checklist.
+1. Start SP7 implementation (rollout controlado and handoff).
+2. Execute feature-flag and rollout-by-city checklist.
+3. Run lint hardening backlog as parallel track (per waiver S6).
 
 ## Do Not Mix Into Next Commit
 
