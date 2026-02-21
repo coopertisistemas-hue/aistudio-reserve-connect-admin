@@ -21,6 +21,7 @@ import RatePlansPage from './pages/admin/RatePlansPage'
 import BookingHoldsPage from './pages/admin/BookingHoldsPage'
 import CommissionTiersPage from './pages/admin/CommissionTiersPage'
 import PayoutSchedulesPage from './pages/admin/PayoutSchedulesPage'
+import ExceptionQueuePage from './pages/admin/ExceptionQueuePage'
 import SiteSettingsPage from './pages/admin/marketing/SiteSettingsPage'
 import SocialLinksPage from './pages/admin/marketing/SocialLinksPage'
 import AdminPlaceholderPage from './pages/admin/AdminPlaceholderPage'
@@ -73,6 +74,7 @@ function App() {
           <Route path="payouts" element={<PayoutsPage />} />
           <Route path="payouts/:id" element={<PayoutDetailPage />} />
           <Route path="ops" element={<OpsPage />} />
+          <Route path="exceptions" element={<ExceptionQueuePage />} />
           <Route path="marketing/site-settings" element={<SiteSettingsPage />} />
           <Route path="marketing/social-links" element={<SocialLinksPage />} />
         </Route>

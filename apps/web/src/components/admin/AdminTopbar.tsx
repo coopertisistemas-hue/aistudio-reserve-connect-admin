@@ -18,6 +18,7 @@ export default function AdminTopbar() {
     { prefix: '/admin/commission-tiers', title: 'Comissoes' },
     { prefix: '/admin/payout-schedules', title: 'Regras de Repasse' },
     { prefix: '/admin/ops', title: 'Ops Center' },
+    { prefix: '/admin/exceptions', title: 'Exception Queue' },
     { prefix: '/admin/marketing/site-settings', title: 'Site Settings' },
     { prefix: '/admin/marketing/social-links', title: 'Social Links' },
     { prefix: '/admin/sites', title: 'Home Hero' },

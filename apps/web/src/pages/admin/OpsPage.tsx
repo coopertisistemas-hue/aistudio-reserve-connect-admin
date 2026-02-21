@@ -36,6 +36,11 @@ type OpsAlert = {
   severity: 'CRITICAL' | 'WARNING' | 'INFO'
   description: string
   evidence_query: string
+  status?: 'open' | 'ack' | 'in_progress' | 'resolved' | 'snoozed'
+  owner_email?: string | null
+  aging_minutes?: number
+  sla_minutes?: number
+  sla_breached?: boolean
 }
 
 type OpsAlertsResponse = {
@@ -116,7 +121,7 @@ export default function OpsPage() {
     try {
       const [summaryRes, alertsRes, retentionPreviewRes, reconciliationStatusRes] = await Promise.all([
         postJson<OpsSummaryResponse>('admin_ops_summary', {}, { auth: true }),
-        postJson<OpsAlertsResponse>('admin_list_ops_alerts', {}, { auth: true }),
+        postJson<OpsAlertsResponse>('admin_list_exception_queue', {}, { auth: true }),
         postJson<RetentionPreviewResponse>('admin_ops_retention_preview', {}, { auth: true }),
         postJson<ReconciliationStatusResponse>('admin_ops_reconciliation_status', {}, { auth: true }),
       ])
@@ -247,6 +252,12 @@ export default function OpsPage() {
                     </span>
                   </div>
                   <div className="muted" style={{ marginBottom: '0.35rem' }}>{alert.description}</div>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
+                    <span className="chip">{alert.status || 'open'}</span>
+                    <span className="muted">owner: {alert.owner_email || 'unassigned'}</span>
+                    <span className="muted">aging: {alert.aging_minutes ?? 0}m</span>
+                    <span className="muted">sla: {alert.sla_minutes ?? 0}m{alert.sla_breached ? ' (breached)' : ''}</span>
+                  </div>
                   <code style={{ fontSize: '0.78rem', color: 'var(--ink-500)' }}>{alert.evidence_query}</code>
                 </div>
               )

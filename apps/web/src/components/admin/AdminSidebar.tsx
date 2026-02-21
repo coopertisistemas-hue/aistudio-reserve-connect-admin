@@ -53,6 +53,7 @@ export default function AdminSidebar() {
       title: 'OPS',
       items: [
         { to: '/admin/ops', label: 'Ops Center', icon: '◇' },
+        { to: '/admin/exceptions', label: 'Exception Queue', icon: '◩' },
         { to: '/admin/insights', label: 'Insights', icon: '◬' },
         { to: '/admin/reports', label: 'Relatorios', icon: '◭' },
       ],
