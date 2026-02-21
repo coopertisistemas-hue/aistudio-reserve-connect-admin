@@ -29,6 +29,7 @@ import UsersAdminPage from './pages/admin/UsersAdminPage'
 import RolesPermissionsPage from './pages/admin/RolesPermissionsPage'
 import AuditLogPage from './pages/admin/AuditLogPage'
 import IntegrationsPage from './pages/admin/IntegrationsPage'
+import MarketingGovernancePage from './pages/admin/MarketingGovernancePage'
 
 function App() {
   return (
@@ -58,7 +59,7 @@ function App() {
           <Route path="commission-tiers" element={<CommissionTiersPage />} />
           <Route path="payout-schedules" element={<PayoutSchedulesPage />} />
           <Route path="insights" element={<OpsPage />} />
-          <Route path="marketing-view" element={<AdminPlaceholderPage />} />
+          <Route path="marketing-view" element={<MarketingGovernancePage />} />
           <Route path="reports" element={<AdminPlaceholderPage />} />
           <Route path="clients" element={<AdminPlaceholderPage />} />
           <Route path="contracts" element={<AdminPlaceholderPage />} />
