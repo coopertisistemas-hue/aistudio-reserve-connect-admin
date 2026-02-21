@@ -25,6 +25,10 @@ import ExceptionQueuePage from './pages/admin/ExceptionQueuePage'
 import SiteSettingsPage from './pages/admin/marketing/SiteSettingsPage'
 import SocialLinksPage from './pages/admin/marketing/SocialLinksPage'
 import AdminPlaceholderPage from './pages/admin/AdminPlaceholderPage'
+import UsersAdminPage from './pages/admin/UsersAdminPage'
+import RolesPermissionsPage from './pages/admin/RolesPermissionsPage'
+import AuditLogPage from './pages/admin/AuditLogPage'
+import IntegrationsPage from './pages/admin/IntegrationsPage'
 
 function App() {
   return (
@@ -61,10 +65,10 @@ function App() {
           <Route path="plans" element={<AdminPlaceholderPage />} />
           <Route path="subscriptions" element={<AdminPlaceholderPage />} />
           <Route path="billing" element={<FinancialPage />} />
-          <Route path="users" element={<AdminPlaceholderPage />} />
-          <Route path="permissions" element={<AdminPlaceholderPage />} />
-          <Route path="integrations" element={<AdminPlaceholderPage />} />
-          <Route path="audit" element={<AdminPlaceholderPage />} />
+          <Route path="users" element={<UsersAdminPage />} />
+          <Route path="permissions" element={<RolesPermissionsPage />} />
+          <Route path="integrations" element={<IntegrationsPage />} />
+          <Route path="audit" element={<AuditLogPage />} />
           <Route path="help" element={<AdminPlaceholderPage />} />
           <Route path="settings" element={<AdminPlaceholderPage />} />
           <Route path="properties" element={<PropertiesPage />} />

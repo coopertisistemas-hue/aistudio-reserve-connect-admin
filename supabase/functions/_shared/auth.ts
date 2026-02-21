@@ -96,6 +96,38 @@ export async function requireAdmin(
   return user
 }
 
+export async function requireAdminPermission(
+  req: Request,
+  supabaseAdmin: ReturnType<typeof createClient>,
+  moduleKey: string,
+  actionKey: string = 'read'
+): Promise<AdminUser> {
+  const user = await requireAdmin(req, supabaseAdmin)
+
+  if (!user.email) {
+    throw new Error('Admin user email not available for RBAC check')
+  }
+
+  const { data, error } = await supabaseAdmin.rpc('admin_check_role', {
+    p_user_email: user.email,
+    p_module: moduleKey,
+    p_action: actionKey,
+  })
+
+  if (error) {
+    console.error('RBAC check error:', error.message)
+    throw new Error('Unable to validate RBAC permission')
+  }
+
+  const allowed = Boolean((data as Record<string, unknown> | null)?.allowed)
+  if (!allowed) {
+    console.warn(`RBAC denied: ${user.email} -> ${moduleKey}:${actionKey}`)
+    throw new Error(`Insufficient permission for ${moduleKey}:${actionKey}`)
+  }
+
+  return user
+}
+
 /**
  * Creates standardized error response
  */
