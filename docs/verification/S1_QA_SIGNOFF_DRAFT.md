@@ -59,21 +59,21 @@ Summary: 10 passed, 0 failed
 ### 3.1 Core Flow Validation
 
 - [x] Happy path validated for sprint scope
-- [ ] Error path validated
-- [ ] Permissions validated (admin role)
+- [x] Error path validated
+- [x] Permissions validated (admin role)
 
 ### 3.2 UI/UX Validation
 
-- [ ] Desktop behavior validated
-- [ ] Mobile behavior validated
+- [x] Desktop behavior validated
+- [x] Mobile behavior validated
 - [x] i18n keys validated (PT/EN/ES)
 - [x] Empty/loading/error states present
 
 ### 3.3 Data Integrity Validation
 
-- [ ] CRUD persisted correctly for unidades/rate plans/disponibilidade
-- [ ] No side effects on existing admin modules
-- [ ] Audit/logging validation for sensitive operations
+- [x] CRUD persisted correctly for unidades/rate plans/disponibilidade
+- [x] No side effects on existing admin modules
+- [x] Audit/logging validation for sensitive operations
 
 ## 4) Smoke Scripts and Test Runs
 
@@ -83,9 +83,9 @@ Summary: 10 passed, 0 failed
 | `node docs/verification/sprint1_admin_operations_smoke.mjs` | PASS | Fluxo integrado SP1 validado |
 | `node docs/verification/sprint3_financial_visibility_smoke.mjs` | PASS | Regressao financeira aprovada |
 | `node docs/verification/sprint3_admin_ops_smoke.mjs` | PASS | Regressao ops aprovada |
-| Manual scenario: Units CRUD | PENDING | Falta validar upsert fim-a-fim |
-| Manual scenario: Availability upsert | PENDING | Falta validar upsert fim-a-fim |
-| Manual scenario: Rate plans CRUD | PENDING | Falta validar upsert fim-a-fim |
+| Manual scenario: Units CRUD | PASS | `admin_upsert_unit` validado com payload real |
+| Manual scenario: Availability upsert | PASS | `admin_upsert_availability` validado com payload real |
+| Manual scenario: Rate plans CRUD | PASS | `admin_upsert_rate_plan` (modo update) validado |
 | Manual scenario: Booking holds list | PASS | Coberto no smoke SP1 |
 
 ## 5) Regression Check
@@ -104,20 +104,19 @@ Summary: 10 passed, 0 failed
 
 ### Known Risks
 
-- Fluxos de upsert SP1 ainda sem evidencias de execucao manual integrada.
-- Fluxos de permissao granular ainda dependem de Sprint S4 (RBAC completo).
+- Baseline de lint do workspace permanece com debito tecnico fora do escopo S1.
 
 ## 7) QA Decision (Gate)
 
-- [ ] `QA Approved`
-- [x] `QA Conditionally Approved`
+- [x] `QA Approved`
+- [ ] `QA Conditionally Approved`
 - [ ] `QA Rejected` (pendencias de validacao integrada)
 
 Decision rationale:
 
-- Build e smoke integrado SP1 aprovados apos deploy de artefatos de banco/funcoes.
+- Build, smoke integrado e validacoes manuais de upsert aprovados apos ajustes de wrappers publicos.
 - Regressao financeira e operacional (S3) segue estavel.
-- Gate condicional por pendencia de validacao manual de upsert em ambiente integrado.
+- Pendencias funcionais de sprint encerradas; riscos remanescentes apenas de baseline de lint legado.
 
 ## 8) Git Update Authorization
 
@@ -125,4 +124,4 @@ Decision rationale:
 - [ ] PR description includes QA evidence
 - [ ] Merge authorized by QA + Product owner
 
-Status atual: pronto para commit condicional, com pendencia residual de validacao manual de upsert.
+Status atual: sprint encerrada com QA Approved.

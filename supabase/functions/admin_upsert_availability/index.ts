@@ -74,9 +74,7 @@ serve(async (req) => {
     const rows = rowsInput.map((row: AvailabilityInput) => normalizeRow(row))
 
     const { data, error } = await supabaseAdmin
-      .from('availability_calendar')
-      .upsert(rows, { onConflict: 'unit_id,rate_plan_id,date' })
-      .select('id, unit_id, rate_plan_id, date, is_available, is_blocked, block_reason, min_stay_override, base_price, discounted_price, currency, allotment, updated_at')
+      .rpc('admin_s1_upsert_availability_rows', { p_rows: rows })
 
     if (error) throw error
 

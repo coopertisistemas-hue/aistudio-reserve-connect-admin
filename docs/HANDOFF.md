@@ -4,15 +4,15 @@ Last update: 2026-02-21
 
 ## Current State
 
-- SP1-SP4 implemented and deployed in integrated environment.
-- QA evidence exists per sprint draft under `docs/verification/`.
+- SP1-SP5 implemented and deployed in integrated environment.
+- QA evidence exists per sprint draft under `docs/verification/` with `QA Approved` gates.
 - Latest governance release commit: `9796699`.
 
 ## Immediate Next Steps
 
-1. Start SP5 implementation (content and channel premium scope from `docs/EXEC_PLAN_CONNECT_EXCELLENCE_SPRINTS.md`).
-2. Create SP5 smoke script and `S5_QA_SIGNOFF_DRAFT.md` before merge.
-3. Run regressions after SP5 changes (at minimum S3 ops + S3 financial + S4 governance smoke).
+1. Start SP6 implementation (stabilization and production quality gates).
+2. Build consolidated smoke matrix for SP1-SP5 + booking regression.
+3. Close lint debt strategy and launch-readiness checklist.
 
 ## Do Not Mix Into Next Commit
 

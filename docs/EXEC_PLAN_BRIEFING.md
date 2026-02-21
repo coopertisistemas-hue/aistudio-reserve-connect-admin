@@ -11,18 +11,20 @@ Modernize Reserve Connect Admin using sprint-based execution with mandatory QA g
 - SP1 complete: reserve operations modules (units, availability, rate plans, booking holds).
 - SP2 complete: financial governance modules (commission tiers, payout schedules).
 - SP3 complete: active exception lifecycle workflow (ack/in_progress/resolved/snooze, ownership).
-- SP4 complete (initial release): RBAC governance modules (users, permissions, audit, integrations).
+- SP4 complete: RBAC governance modules (users, permissions, audit, integrations).
+- SP5 complete: marketing governance (SEO overrides and branding assets).
 
 ## Deployment and QA Status
 
-- DB migrations applied remotely through `044`.
-- SP1-SP4 edge functions deployed in integrated environment.
+- DB migrations applied remotely through `049`.
+- SP1-SP5 edge functions deployed in integrated environment.
 - Smoke/regression status:
   - `sprint2_financial_governance_smoke.mjs`: PASS
   - `sprint3_admin_ops_smoke.mjs`: PASS
   - `sprint3_financial_visibility_smoke.mjs`: PASS
   - `sprint3_ops_lifecycle_smoke.mjs`: PASS
-  - `sprint4_rbac_governance_smoke.mjs`: PASS
+- `sprint4_rbac_governance_smoke.mjs`: PASS
+- `sprint5_marketing_governance_smoke.mjs`: PASS
 
 ## Canonical Artifacts
 

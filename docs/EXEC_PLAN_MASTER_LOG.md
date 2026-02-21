@@ -1,7 +1,7 @@
 # Exec Plan Master Log
 
 Last update: 2026-02-21  
-Scope: Consolidated decision log for Reserve Connect Admin modernization (SP1-SP4)
+Scope: Consolidated decision log for Reserve Connect Admin modernization (SP1-SP5)
 
 ## Objective
 
@@ -81,22 +81,51 @@ Keep a single versioned history of briefing, key decisions, deployments, QA gate
   - `docs/verification/sprint4_rbac_governance_smoke.mjs`
   - `docs/verification/S4_QA_SIGNOFF_DRAFT.md`
 
+### SP5 - Content and Channel Premium (Marketing Governance)
+
+- Delivered SEO governance migration:
+  - `045_sprint5_seo_branding_governance.sql`
+- Delivered edge functions:
+  - `admin_list_seo_overrides`, `admin_upsert_seo_override`
+  - `admin_get_branding_assets`, `admin_upsert_branding_assets`
+- Delivered frontend module:
+  - `/admin/marketing-view` -> `MarketingGovernancePage.tsx`
+- Added smoke and QA artifacts:
+  - `docs/verification/sprint5_marketing_governance_smoke.mjs`
+  - `docs/verification/S5_QA_SIGNOFF_DRAFT.md`
+
+### 2026-02-21 - Signoff hardening closure (SP1-SP5)
+
+- Identified and fixed SP1/SP2 upsert gap in integrated environment.
+- Added and deployed DB fixes:
+  - `046_sp1_sp2_upsert_public_rpc_wrappers.sql`
+  - `047_fix_s1_availability_upsert_wrapper.sql`
+  - `048_fix_s1_availability_upsert_wrapper_conflict.sql`
+  - `049_fix_availability_calendar_columns.sql`
+- Updated and redeployed edge functions:
+  - `admin_upsert_rate_plan`
+  - `admin_upsert_availability`
+  - `admin_upsert_commission_tier`
+  - `admin_upsert_payout_schedule`
+- Revalidated smoke suite S1-S5 (all pass) and promoted QA drafts to `QA Approved`.
+
 ## Deployment State (Integrated Env)
 
-- Migrations applied remotely through `044`.
-- SP1/SP2/SP3/SP4 edge functions are deployed and active.
-- Regression smoke evidence exists for S2/S3 and S4 governance smoke.
+- Migrations applied remotely through `049`.
+- SP1/SP2/SP3/SP4/SP5 edge functions are deployed and active.
+- Regression smoke evidence exists for S1-S5 critical paths.
 
 ## Branch/Commit Landmarks
 
 - SP1/SP2 consolidation commit: `b626797`
 - SP3 exception lifecycle commit: `5ae9012`
 - SP4 RBAC governance commit: `9796699`
+- SP5 marketing governance commit: `918327c`
 
 ## Open Items / Residual Risks
 
 - Workspace lint baseline has out-of-scope issues (tracked as quality backlog).
-- Negative RBAC test with a real non-privileged user is still recommended for full hard signoff.
+- Negative RBAC test via `admin_check_role` (`allowed=false`) recorded; dedicated non-admin login path remains optional hardening.
 - Unrelated local changes may coexist in working tree and should not be mixed into sprint commits.
 
 ## Recovery Procedure (if chat history is lost)

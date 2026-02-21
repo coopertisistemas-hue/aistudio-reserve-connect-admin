@@ -28,42 +28,26 @@ serve(async (req) => {
       throw new Error('min_stay_nights must be >= 1')
     }
 
-    const payload = {
-      property_id: propertyId,
-      host_rate_plan_id: body?.host_rate_plan_id || null,
-      name,
-      code: body?.code || null,
-      is_default: body?.is_default === true,
-      channels_enabled: Array.isArray(body?.channels_enabled) && body.channels_enabled.length > 0
+    const { data, error } = await supabaseAdmin.rpc('admin_s1_upsert_rate_plan', {
+      p_id: id || null,
+      p_property_id: propertyId,
+      p_host_rate_plan_id: body?.host_rate_plan_id || null,
+      p_name: name,
+      p_code: body?.code || null,
+      p_is_default: body?.is_default === true,
+      p_channels_enabled: Array.isArray(body?.channels_enabled) && body.channels_enabled.length > 0
         ? body.channels_enabled
         : ['direct'],
-      min_stay_nights: minStay,
-      max_stay_nights: body?.max_stay_nights ?? null,
-      advance_booking_days: body?.advance_booking_days ?? null,
-      cancellation_policy_code: body?.cancellation_policy_code || null,
-      is_active: body?.is_active !== false,
-    }
-
-    if (id) {
-      const { data, error } = await supabaseAdmin
-        .from('rate_plans')
-        .update(payload)
-        .eq('id', id)
-        .select('id, property_id, name, code, is_default, channels_enabled, min_stay_nights, max_stay_nights, advance_booking_days, cancellation_policy_code, is_active, updated_at')
-        .single()
-
-      if (error) throw error
-      return createSuccessResponse({ mode: 'updated', rate_plan: data })
-    }
-
-    const { data, error } = await supabaseAdmin
-      .from('rate_plans')
-      .insert(payload)
-      .select('id, property_id, name, code, is_default, channels_enabled, min_stay_nights, max_stay_nights, advance_booking_days, cancellation_policy_code, is_active, created_at')
-      .single()
+      p_min_stay_nights: minStay,
+      p_max_stay_nights: body?.max_stay_nights ?? null,
+      p_advance_booking_days: body?.advance_booking_days ?? null,
+      p_cancellation_policy_code: body?.cancellation_policy_code || null,
+      p_is_active: body?.is_active !== false,
+    })
 
     if (error) throw error
-    return createSuccessResponse({ mode: 'created', rate_plan: data })
+    const row = Array.isArray(data) ? data[0] : null
+    return createSuccessResponse({ mode: row?.mode || (id ? 'updated' : 'created'), rate_plan: row })
   } catch (error) {
     console.error('admin_upsert_rate_plan error:', (error as Error).message)
     return createErrorResponse('ADMIN_RATE_PLAN_002', (error as Error).message, 400)

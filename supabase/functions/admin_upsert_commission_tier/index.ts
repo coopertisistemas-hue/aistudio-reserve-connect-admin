@@ -27,38 +27,22 @@ serve(async (req) => {
       throw new Error('commission_rate must be between 0 and 1')
     }
 
-    const payload = {
-      city_code: cityCode,
-      property_id: body?.property_id || null,
-      name,
-      min_properties: body?.min_properties ?? 0,
-      max_properties: body?.max_properties ?? null,
-      commission_rate: commissionRate,
-      effective_from: body?.effective_from || new Date().toISOString().slice(0, 10),
-      effective_to: body?.effective_to || null,
-      is_active: body?.is_active !== false,
-    }
-
-    if (id) {
-      const { data, error } = await supabaseAdmin
-        .from('commission_tiers')
-        .update(payload)
-        .eq('id', id)
-        .select('id, city_code, property_id, name, min_properties, max_properties, commission_rate, effective_from, effective_to, is_active, updated_at')
-        .single()
-
-      if (error) throw error
-      return createSuccessResponse({ mode: 'updated', commission_tier: data })
-    }
-
-    const { data, error } = await supabaseAdmin
-      .from('commission_tiers')
-      .insert(payload)
-      .select('id, city_code, property_id, name, min_properties, max_properties, commission_rate, effective_from, effective_to, is_active, created_at')
-      .single()
+    const { data, error } = await supabaseAdmin.rpc('admin_s2_upsert_commission_tier', {
+      p_id: id || null,
+      p_city_code: cityCode,
+      p_property_id: body?.property_id || null,
+      p_name: name,
+      p_min_properties: body?.min_properties ?? 0,
+      p_max_properties: body?.max_properties ?? null,
+      p_commission_rate: commissionRate,
+      p_effective_from: body?.effective_from || new Date().toISOString().slice(0, 10),
+      p_effective_to: body?.effective_to || null,
+      p_is_active: body?.is_active !== false,
+    })
 
     if (error) throw error
-    return createSuccessResponse({ mode: 'created', commission_tier: data })
+    const row = Array.isArray(data) ? data[0] : null
+    return createSuccessResponse({ mode: row?.mode || (id ? 'updated' : 'created'), commission_tier: row })
   } catch (error) {
     console.error('admin_upsert_commission_tier error:', (error as Error).message)
     return createErrorResponse('ADMIN_COMMISSION_002', (error as Error).message, 400)

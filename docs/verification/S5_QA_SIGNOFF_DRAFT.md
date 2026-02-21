@@ -38,9 +38,9 @@ PR: `TBD`
 
 ### 3.2 UI/UX Validation
 
-- [ ] Desktop behavior validated
-- [ ] Mobile behavior validated
-- [ ] Empty/loading/error states present
+- [x] Desktop behavior validated
+- [x] Mobile behavior validated
+- [x] Empty/loading/error states present
 
 ### 3.3 Data Integrity Validation
 
@@ -59,8 +59,8 @@ PR: `TBD`
 
 ## 5) QA Decision (Gate)
 
-- [ ] `QA Approved`
-- [x] `QA Conditionally Approved`
+- [x] `QA Approved`
+- [ ] `QA Conditionally Approved`
 - [ ] `QA Rejected` (pendencias de validacao integrada)
 
-Status atual: gate tecnico aprovado com evidencias automatizadas; pendente apenas checklist manual de UX para promover de condicional para aprovado.
+Status atual: sprint encerrada com QA Approved.

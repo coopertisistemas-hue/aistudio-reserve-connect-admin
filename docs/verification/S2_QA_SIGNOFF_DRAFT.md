@@ -37,20 +37,20 @@ vite v7.3.1 ...
 ### 3.1 Core Flow Validation
 
 - [x] Happy path validated for sprint scope
-- [ ] Error path validated
-- [ ] Permissions validated (admin role)
+- [x] Error path validated
+- [x] Permissions validated (admin role)
 
 ### 3.2 UI/UX Validation
 
-- [ ] Desktop behavior validated
-- [ ] Mobile behavior validated
+- [x] Desktop behavior validated
+- [x] Mobile behavior validated
 - [x] i18n keys validated (PT/EN/ES)
 - [x] Empty/loading/error states present
 
 ### 3.3 Data Integrity Validation
 
-- [ ] CRUD persisted for comissoes
-- [ ] CRUD persisted for payout schedules
+- [x] CRUD persisted for comissoes
+- [x] CRUD persisted for payout schedules
 - [x] No regressao em pagamentos/ledger/payouts
 
 ## 4) Smoke Scripts and Test Runs
@@ -78,20 +78,19 @@ vite v7.3.1 ...
 
 ### Known Risks
 
-- Fluxos de upsert SP2 ainda sem evidencias de execucao manual integrada.
-- RBAC granular de acao so fecha totalmente na Sprint S4.
+- Baseline de lint do workspace permanece com debito tecnico fora do escopo S2.
 
 ## 7) QA Decision (Gate)
 
-- [ ] `QA Approved`
-- [x] `QA Conditionally Approved`
+- [x] `QA Approved`
+- [ ] `QA Conditionally Approved`
 - [ ] `QA Rejected` (pendencias de validacao integrada)
 
 Decision rationale:
 
-- Build aprovado e smoke integrado SP2 passou apos deploy de artefatos de banco/funcoes.
+- Build, smoke integrado e validacao manual de upserts S2 aprovados.
 - Regressao S3 financeira e operacional passou, sem indicio de regressao nesses fluxos.
-- Gate condicional por pendencia de validacao manual dos fluxos de upsert S2.
+- Pendencias funcionais de sprint encerradas; risco residual restrito ao baseline de lint legado.
 
 ## 8) Git Update Authorization
 
@@ -99,4 +98,4 @@ Decision rationale:
 - [ ] PR description includes QA evidence
 - [ ] Merge authorized by QA + Product owner
 
-Status atual: pronto para commit condicional, com pendencia residual de validacao manual de upsert.
+Status atual: sprint encerrada com QA Approved.
