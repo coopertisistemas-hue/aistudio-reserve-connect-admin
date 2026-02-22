@@ -30,6 +30,7 @@ import RolesPermissionsPage from './pages/admin/RolesPermissionsPage'
 import AuditLogPage from './pages/admin/AuditLogPage'
 import IntegrationsPage from './pages/admin/IntegrationsPage'
 import MarketingGovernancePage from './pages/admin/MarketingGovernancePage'
+import RolloutControlPage from './pages/admin/RolloutControlPage'
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
           <Route path="payouts/:id" element={<PayoutDetailPage />} />
           <Route path="ops" element={<OpsPage />} />
           <Route path="exceptions" element={<ExceptionQueuePage />} />
+          <Route path="release-control" element={<RolloutControlPage />} />
           <Route path="marketing/site-settings" element={<SiteSettingsPage />} />
           <Route path="marketing/social-links" element={<SocialLinksPage />} />
         </Route>

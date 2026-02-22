@@ -14,6 +14,7 @@ Modernize Reserve Connect Admin using sprint-based execution with mandatory QA g
 - SP4 complete: RBAC governance modules (users, permissions, audit, integrations).
 - SP5 complete: marketing governance (SEO overrides and branding assets).
 - SP6 complete: stabilization matrix and release-readiness gate.
+- SP7 complete: rollout control (feature flags, city rollout, rollback).
 
 ## Deployment and QA Status
 
@@ -27,6 +28,7 @@ Modernize Reserve Connect Admin using sprint-based execution with mandatory QA g
 - `sprint4_rbac_governance_smoke.mjs`: PASS
 - `sprint5_marketing_governance_smoke.mjs`: PASS
 - `sprint6_stabilization_matrix.mjs`: PASS
+- `sprint7_rollout_control_smoke.mjs`: PASS
 
 ## Canonical Artifacts
 

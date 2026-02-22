@@ -4,15 +4,15 @@ Last update: 2026-02-21
 
 ## Current State
 
-- SP1-SP6 implemented and deployed in integrated environment.
+- SP1-SP7 implemented and deployed in integrated environment.
 - QA evidence exists per sprint draft under `docs/verification/` with `QA Approved` gates.
 - Latest governance release commit: `9796699`.
 
 ## Immediate Next Steps
 
-1. Start SP7 implementation (rollout controlado and handoff).
-2. Execute feature-flag and rollout-by-city checklist.
-3. Run lint hardening backlog as parallel track (per waiver S6).
+1. Start post-sprint hardening track (lint debt and BookingFlow stabilization).
+2. Prepare release notes and PR final consolidation.
+3. Keep rollout monitoring in `reserve.rollout_events` for initial operation window.
 
 ## Do Not Mix Into Next Commit
 

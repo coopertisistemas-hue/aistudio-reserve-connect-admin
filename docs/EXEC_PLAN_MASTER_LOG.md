@@ -1,7 +1,7 @@
 # Exec Plan Master Log
 
 Last update: 2026-02-21  
-Scope: Consolidated decision log for Reserve Connect Admin modernization (SP1-SP6)
+Scope: Consolidated decision log for Reserve Connect Admin modernization (SP1-SP7)
 
 ## Objective
 
@@ -119,6 +119,24 @@ Keep a single versioned history of briefing, key decisions, deployments, QA gate
 - Recorded lint baseline waiver for existing workspace debt:
   - `docs/LINT_BASELINE_WAIVER_S6.md`
 - S6 gate closed as `QA Approved` with formal waiver.
+
+### SP7 - Rollout Control and Operational Handoff
+
+- Delivered rollout control migration:
+  - `050_sprint7_rollout_control.sql`
+- Delivered edge functions:
+  - `admin_list_feature_flags`, `admin_upsert_feature_flag`
+  - `admin_list_city_rollouts`, `admin_upsert_city_rollout`
+  - `admin_rollout_rollback`
+- Delivered frontend module:
+  - `/admin/release-control` -> `RolloutControlPage.tsx`
+- Added smoke and QA artifacts:
+  - `docs/verification/sprint7_rollout_control_smoke.mjs`
+  - `docs/verification/S7_QA_SIGNOFF_DRAFT.md`
+- Validation result:
+  - S7 rollout smoke PASS
+  - S6 stabilization matrix rerun PASS (regression umbrella)
+- S7 gate closed as `QA Approved`.
 
 ## Deployment State (Integrated Env)
 
